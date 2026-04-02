@@ -12,8 +12,40 @@ class KategoriController extends Controller
         return view('admin.kategori', compact('kategori'));
     }
 
-    public function store(Request $request) {
-        Kategori::create(['ket_kategori' => $request->ket_kategori]);
-        return redirect()->back()->with('success', 'Kategori baru ditambah!');
+    public function store(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'ket_kategori' => 'required|string|max:255',
+        ]);
+    
+        // Simpan ke database
+        Kategori::create([
+            'ket_kategori' => $request->ket_kategori
+        ]);
+    
+        return redirect()->back()->with('success', 'Kategori berhasil ditambah!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'ket_kategori' => 'required|string|max:255',
+        ]);
+
+        $kategori = Kategori::findOrFail($id);
+        $kategori->update([
+            'ket_kategori' => $request->ket_kategori
+        ]);
+
+        return redirect()->back()->with('success', 'Kategori berhasil diubah!');
+    }
+
+    public function destroy($id)
+    {
+        $kategori = Kategori::findOrFail($id);
+        $kategori->delete();
+
+        return redirect()->back()->with('success', 'Kategori berhasil dihapus!');
     }
 }

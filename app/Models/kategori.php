@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class kategori extends Model
 {
-    protected $table = 'kategori';
-    protected $primaryKey = 'id_kategori';
+    use HasFactory;
 
-    protected $fillable = ['ket_kategori'];
+    protected $table = 'kategori'; // Pastiin nama tabelnya sesuai
+    protected $primaryKey = 'id_kategori'; // Karena di view kamu pakai id_kategori
 
-    public function inputAspirasi()
-    {
-        return $this->hasMany(InputAspirasi::class, 'id_kategori', 'id_kategori');
-    }
+    protected $fillable = [
+        'ket_kategori',
+    ];
 }
