@@ -89,4 +89,20 @@ class AspirasiController extends Controller
 
         return redirect()->back()->with('success', 'Aspirasi berhasil dikirim!');
     } // Penutup fungsi store
+
+    public function updateStatus(Request $request, $id)
+    {
+        // Cari data aspirasi berdasarkan ID (id_pelaporan)
+        $aspirasi = \App\Models\Aspirasi::where('id_pelaporan', $id)->first();
+
+        if ($aspirasi) {
+            $aspirasi->update([
+                'status'   => $request->status,
+                'feedback' => $request->feedback ?? '-'
+            ]);
+            return redirect()->back()->with('success', 'Status berhasil diperbarui!');
+        }
+
+        return redirect()->back()->with('error', 'Data tidak ditemukan.');
+    }
 }

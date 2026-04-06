@@ -53,10 +53,10 @@
                         <label class="form-label">Lokasi</label>
                         <select name="lokasi" class="form-select" required>
                             <option value="">-- Pilih lokasi --</option>
-                            <option value="1">Ruang Kelas</option>
-                            <option value="2">Kamar Mandi</option>
-                            <option value="3">Lab</option>
-                            <option value="4">Lainnya</option>
+                            <option value="Ruang Kelas">Ruang Kelas</option>
+                            <option value="Kamar Mandi">Kamar Mandi</option>
+                            <option value="Lab">Lab</option>
+                            <option value="Lainnya">Lainnya</option>
                         </select>
                     </div>
 
