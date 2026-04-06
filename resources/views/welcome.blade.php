@@ -100,9 +100,9 @@
                     </p>
                     
                     <div class="d-flex gap-3">
-                        <a href="{{ route('aspirasi.create') }}" class="btn btn-mazer btn-lg shadow">
-                            <i class="fas fa-paper-plane me-2"></i>Kirim Laporan
-                        </a>
+                    <a href="{{ route('aspirasi.create') }}" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Kirim Laporan
+                    </a>
                         <a href="#" class="btn btn-light btn-lg border px-4" style="border-radius: 8px;">Pelajari Lebih Lanjut</a>
                     </div>
                 </div>

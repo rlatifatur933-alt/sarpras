@@ -2,21 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory; // TAMBAHKAN BARIS INI
 use Illuminate\Database\Eloquent\Model;
 
-class aspirasi extends Model
+class Aspirasi extends Model
 {
-    use HasFactory; // Sekarang baris ini nggak akan error lagi
-
-    // Ganti dari 'input_aspirasi' jadi 'aspirasi'
     protected $table = 'aspirasi';
-
-    protected $fillable = [
-        'nis', 
-        'kategori_id', 
-        'laporan', 
-        'status', 
-        'tanggal'
-    ];
+    
+    // Tambahkan ini juga di sini!
+    protected $primaryKey = 'id_aspirasi'; // atau apa nama PK di tabel aspirasimu
+    
+    // Ini WAJIB ada agar id_pelaporan boleh diisi lewat Controller
+    protected $fillable = ['id_pelaporan', 'status', 'feedback']; 
 }

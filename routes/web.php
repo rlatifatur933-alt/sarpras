@@ -26,13 +26,10 @@ Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kate
 Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
 Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 
-// Route untuk Siswa Input Aspirasi
-Route::get('/aspirasi/tambah', function () {
-    $kategori = Kategori::all(); // Ambil semua data kategori dari database
-    return view('siswa.create', compact('kategori')); // Kirim variabel $kategori ke view
-})->name('aspirasi.create');
-
-Route::post('/aspirasi/simpan', [InputAspirasiController::class, 'store'])->name('aspirasi.store');
+// Halaman form untuk siswa
+Route::get('/kirim-aspirasi', [AspirasiController::class, 'create'])->name('aspirasi.create');
+// Proses simpan data ke database
+Route::post('/kirim-aspirasi', [AspirasiController::class, 'store'])->name('aspirasi.store');
 
 // Route login
 Route::get('/login', [AuthController::class, 'login'])->name('login');
