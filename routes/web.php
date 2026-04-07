@@ -44,4 +44,12 @@ Route::put('/admin/aspirasi/update/{id}', [AspirasiController::class, 'updateFee
 Route::post('/admin/aspirasi/update/{id}', [AspirasiController::class, 'updateStatus'])->name('aspirasi.update');
 
 // Route untuk melihat progres untuk siswa
-Route::get('/riwayat-laporan', [AspirasiController::class, 'history'])->name('siswa.history');
+Route::get('/history-aspirasi', [AspirasiController::class, 'history'])->name('aspirasi.history');
+
+// Route untuk logout
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');

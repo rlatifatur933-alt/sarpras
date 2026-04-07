@@ -28,7 +28,12 @@
         <a href="{{ route('aspirasi.index') }}" class="{{ request()->is('admin/aspirasi*') ? 'active' : '' }}">📂 Laporan Kerusakan</a>
         
         <div style="position: absolute; bottom: 0; width: 100%;" class="p-3">
-            <button class="btn btn-danger w-100 btn-sm">Keluar</button>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger w-100 btn-sm">
+                    <i class="bi bi-box-arrow-right"></i> Keluar
+                </button>
+            </form>
         </div>
     </div>
 

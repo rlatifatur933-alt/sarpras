@@ -5,6 +5,15 @@
             <div class="card-header bg-primary text-white text-center">
                 <h5>Form Pengaduan Aspirasi</h5>
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('aspirasi.store') }}" method="POST" enctype="multipart/form-data" class="card-body">
                 @csrf
                 <div class="mb-3">

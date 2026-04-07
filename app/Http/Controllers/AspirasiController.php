@@ -106,13 +106,18 @@ class AspirasiController extends Controller
         return redirect()->back()->with('error', 'Data tidak ditemukan.');
     }
 
-    public function history()
+    public function history(Request $request)
     {
-        // Kita ambil data aspirasi berdasarkan NIS yang lagi login/session
-        // 'latest()' biar laporan terbaru muncul paling atas
-        $aspirasi = Aspirasi::where('nis', session('nis'))->latest()->get();
+        // 1. Ambil NIS dari inputan form di halaman history
+        $nisSiswa = $request->input('nis');
 
-        // Arahin ke file view yang baru lo buat di folder siswa
-        return view('siswa.history', compact('aspirasi'));
+        // Pastikan pakai InputAspirasi, bukan Aspirasi
+        $aspirasi = \App\Models\InputAspirasi::when($nisSiswa, function ($query, $nisSiswa) {
+                        return $query->where('nis', $nisSiswa);
+                    })
+                    ->latest()
+                    ->get();
+        // 3. Kirim data ke view
+        return view('siswa.history', compact('aspirasi', 'nisSiswa'));
     }
 }
