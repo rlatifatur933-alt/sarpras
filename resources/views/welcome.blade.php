@@ -73,13 +73,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto gap-2">
                     <li class="nav-item"><a class="nav-link" href="#">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Tentang</a></li>
+                    <a class="nav-link" href="{{ route('tentang') }}">Tentang</a>
                     <li class="nav-item">
                         @if (Route::has('login'))
                             @auth
                                 <a href="{{ url('/dashboard') }}" class="btn btn-mazer px-4">Dashboard</a>
                             @else
-                                <a href="{{ route('login') }}" class="btn btn-outline-mazer px-4">Login Admin</a>
+                                <a href="{{ route('login') }}" class="btn btn-outline-mazer px-4">Login</a>
                             @endauth
                         @endif
                     </li>

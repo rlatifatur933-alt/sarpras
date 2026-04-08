@@ -53,3 +53,8 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken();
     return redirect('/');
 })->name('logout');
+
+// Route Tentang
+Route::get('/tentang', function () {
+    return view('tentang');
+})->name('tentang');

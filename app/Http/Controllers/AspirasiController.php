@@ -10,16 +10,17 @@ class AspirasiController extends Controller
 {
     public function dashboard()
     {
-        // Mengambil jumlah dari tabel input_aspirasi
-        $total = \App\Models\InputAspirasi::count(); 
-        
-        // Mengambil jumlah berdasarkan status dari tabel aspirasi
-        $menunggu = \App\Models\Aspirasi::where('status', 'menunggu')->count();
-        $proses = \App\Models\Aspirasi::where('status', 'proses')->count();
-        $selesai = \App\Models\Aspirasi::where('status', 'selesai')->count();
-
-        // Pastikan nama di compact() sama dengan variabel di atas dan di Blade
-        return view('admin.dashboard', compact('total', 'menunggu', 'proses', 'selesai'));
+        $total = Aspirasi::count();
+        $menunggu = Aspirasi::where('status', 'menunggu')->count();
+        $proses = Aspirasi::where('status', 'proses')->count();
+        $selesai = Aspirasi::where('status', 'selesai')->count();
+    
+        // Hitung Persentase (biar aman dari error pembagian nol)
+        $p_menunggu = $total > 0 ? round(($menunggu / $total) * 100) : 0;
+        $p_proses = $total > 0 ? round(($proses / $total) * 100) : 0;
+        $p_selesai = $total > 0 ? round(($selesai / $total) * 100) : 0;
+    
+        return view('admin.dashboard', compact('total', 'menunggu', 'proses', 'selesai', 'p_menunggu', 'p_proses', 'p_selesai'));
     }
 
     public function index() 

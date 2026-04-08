@@ -24,14 +24,25 @@
             <hr class="text-secondary">
         </div>
         <div class="p-4">
-            @if(auth()->user()->role == 'admin')
-                <a href="{{ route('admin.dashboard') }}" class="{{ request()->is('dashboard') ? 'active' : '' }}">📊 Dashboard</a>
-                <a href="{{ route('kategori.index') }}" class="{{ request()->is('kategori*') ? 'active' : '' }}">🛠️ Kategori Barang</a>
-                <a href="{{ route('aspirasi.index') }}" class="{{ request()->is('admin/aspirasi*') ? 'active' : '' }}">📂 Laporan Kerusakan</a>
+            @auth
+                {{-- Ini hanya tampil kalau sudah LOGIN --}}
+                @if(auth()->user()->role == 'admin')
+                    <h6 class="text-muted small uppercase">Menu Admin</h6>
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
+                    <a href="{{ route('kategori.index') }}" class="nav-link {{ request()->is('kategori*') ? 'active' : '' }}">Kategori Barang</a>
+                    <a href="{{ route('aspirasi.index') }}" class="nav-link {{ request()->is('admin/aspirasi*') ? 'active' : '' }}">Laporan Kerusakan</a>
+                @else
+                    <h6 class="text-muted small uppercase">Menu Siswa</h6>
+                    <a href="{{ url('/history-aspirasi') }}" class="nav-link">Riwayat Laporan</a>
+                @endif
             @else
-                <a href="{{ url('/history-aspirasi') }}" class="{{ request()->is('history-aspirasi') ? 'active' : '' }}">📜 Riwayat Laporan</a>
-                <a href="{{ url('/kirim-aspirasi') }}" class="{{ request()->is('kirim-aspirasi') ? 'active' : '' }}">📝 Kirim Aspirasi</a>
-            @endif
+                {{-- Ini tampil untuk PUBLIK (Belum Login) --}}
+                <h4 class="text-muted small uppercase">Menu Tamu</h4>
+                <a href="{{ url('/') }}" class="nav-link">Beranda</a>
+                <a href="{{ route('tentang') }}" class="nav-link {{ request()->is('tentang') ? 'active' : '' }}">Tentang</a>
+                <hr>
+                <a href="{{ route('login') }}" class="btn btn-primary w-100 mt-2">Login</a>
+            @endauth
         </div>
         <div style="position: absolute; bottom: 0; width: 100%;" class="p-3">
             <form action="{{ route('logout') }}" method="POST">
@@ -44,12 +55,6 @@
     </div>
 
     <div class="main-content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 rounded-3">
-            <div class="container-fluid">
-                 <span class="navbar-brand mb-0 h1 fs-6 text-muted">Selamat Datang, {{ auth()->user()->username }}</span>
-            </div>
-        </nav>
-
         @yield('content')
     </div>
 
