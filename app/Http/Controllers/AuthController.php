@@ -33,7 +33,13 @@ class AuthController extends Controller
         // Eksekusi Login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard'); // Pakai URL langsung biar pasti
+
+            // Tambahin logika ini buat cek role
+            if (auth()->user()->role == 'admin') {
+                return redirect()->intended('/dashboard');
+            } else {
+                return redirect()->intended('/history-aspirasi');
+            }
         }
 
         // Kalau gagal, balik ke login dengan pesan error

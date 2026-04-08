@@ -87,7 +87,7 @@ class AspirasiController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Aspirasi berhasil dikirim!');
+        return redirect('/history-aspirasi')->with('success', 'Aspirasi berhasil dikirim!');
     } // Penutup fungsi store
 
     public function updateStatus(Request $request, $id)
@@ -106,18 +106,19 @@ class AspirasiController extends Controller
         return redirect()->back()->with('error', 'Data tidak ditemukan.');
     }
 
-    public function history(Request $request)
+    public function history()
     {
-        // 1. Ambil NIS dari inputan form di halaman history
-        $nisSiswa = $request->input('nis');
+        // Ambil username dari user yang login (sekarang isinya '12345')
+        $nisSiswa = auth()->user()->username;
 
-        // Pastikan pakai InputAspirasi, bukan Aspirasi
-        $aspirasi = \App\Models\InputAspirasi::when($nisSiswa, function ($query, $nisSiswa) {
-                        return $query->where('nis', $nisSiswa);
-                    })
-                    ->latest()
-                    ->get();
-        // 3. Kirim data ke view
+        // Ambil data dari tabel Aspirasi yang punya relasi ke InputAspirasi dengan NIS tersebut
+        $aspirasi = \App\Models\Aspirasi::whereHas('inputAspirasi', function ($query) use ($nisSiswa) {
+            return $query->where('nis', $nisSiswa);
+        })
+        ->latest()
+        ->get();
+
+        // Kirim ke view (variabel nisSiswa tetap dikirim buat jaga-jaga kalau mau ditampilin)
         return view('siswa.history', compact('aspirasi', 'nisSiswa'));
     }
 }

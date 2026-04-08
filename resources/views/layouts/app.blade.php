@@ -23,10 +23,16 @@
             <h4 class="fw-bold text-white">SARPRAS</h4>
             <hr class="text-secondary">
         </div>
-        <a href="{{ route('admin.dashboard') }}" class="{{ request()->is('dashboard') ? 'active' : '' }}">📊 Dashboard</a>
-        <a href="{{ route('kategori.index') }}" class="{{ request()->is('kategori*') ? 'active' : '' }}">🛠 Kategori Barang</a>
-        <a href="{{ route('aspirasi.index') }}" class="{{ request()->is('admin/aspirasi*') ? 'active' : '' }}">📂 Laporan Kerusakan</a>
-        
+        <div class="p-4">
+            @if(auth()->user()->role == 'admin')
+                <a href="{{ route('admin.dashboard') }}" class="{{ request()->is('dashboard') ? 'active' : '' }}">📊 Dashboard</a>
+                <a href="{{ route('kategori.index') }}" class="{{ request()->is('kategori*') ? 'active' : '' }}">🛠️ Kategori Barang</a>
+                <a href="{{ route('aspirasi.index') }}" class="{{ request()->is('admin/aspirasi*') ? 'active' : '' }}">📂 Laporan Kerusakan</a>
+            @else
+                <a href="{{ url('/history-aspirasi') }}" class="{{ request()->is('history-aspirasi') ? 'active' : '' }}">📜 Riwayat Laporan</a>
+                <a href="{{ url('/kirim-aspirasi') }}" class="{{ request()->is('kirim-aspirasi') ? 'active' : '' }}">📝 Kirim Aspirasi</a>
+            @endif
+        </div>
         <div style="position: absolute; bottom: 0; width: 100%;" class="p-3">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
@@ -40,7 +46,7 @@
     <div class="main-content">
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4 rounded-3">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1 fs-6 text-muted">Selamat Datang, Admin</span>
+                 <span class="navbar-brand mb-0 h1 fs-6 text-muted">Selamat Datang, {{ auth()->user()->username }}</span>
             </div>
         </nav>
 

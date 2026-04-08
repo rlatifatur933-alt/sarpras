@@ -1,4 +1,7 @@
 @extends('layouts.app') @section('content')
+@if(auth()->user()->role == 'siswa')
+    <script>window.location = "{{ url('/history-aspirasi') }}";</script>
+@endif
 <div class="page-heading">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">

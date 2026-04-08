@@ -13,4 +13,11 @@ class Aspirasi extends Model
     
     // Ini WAJIB ada agar id_pelaporan boleh diisi lewat Controller
     protected $fillable = ['id_pelaporan', 'status', 'feedback']; 
+
+    public function inputAspirasi()
+    {
+        // Pastiin 'id_pelaporan' itu kolom penyambung di kedua tabel
+        return $this->belongsTo(InputAspirasi::class, 'id_pelaporan', 'id_pelaporan');
+    }
+    
 }

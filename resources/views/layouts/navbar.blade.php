@@ -27,7 +27,7 @@
                     @else
                         {{-- Button KHUSUS SISWA --}}
                         <li class="nav-item">
-                            <a href="{{ route('siswa.history') }}" class="btn btn-success px-4 rounded-pill text-white">
+                                <a href="{{ url('/history-aspirasi') }}" class="btn btn-success px-4 rounded-pill text-white">
                                 <i class="bi bi-clock-history me-1"></i> Laporanku
                             </a>
                         </li>
