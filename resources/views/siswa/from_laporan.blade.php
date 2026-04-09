@@ -28,7 +28,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('aspirasi.store') }}" method="POST">
+                <form action="{{ route('aspirasi.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="mb-3">
@@ -58,6 +58,12 @@
                             <option value="Lab">Lab</option>
                             <option value="Lainnya">Lainnya</option>
                         </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Foto Bukti Kerusakan</label>
+                        <input type="file" name="foto" class="form-control" accept="image/*">
+                        <small class="text-muted">Format: jpg, png, jpeg. Maks: 2MB</small>
                     </div>
 
                     <div class="mb-3">

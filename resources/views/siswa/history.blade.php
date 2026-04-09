@@ -33,6 +33,7 @@
                             <th class="text-center" width="5%">No</th>
                             <th>Isi Laporan</th>
                             <th width="20%">Tanggal</th>
+                            <th width="17%">Foto</th>
                             <th width="15%" class="text-center">Status</th>
                         </tr>
                     </thead>
@@ -48,6 +49,14 @@
                                 <span class="text-muted">
                                     <i class="bi bi-calendar3 me-1"></i> {{ $a->created_at->format('d M Y') }}
                                 </span>
+                            </td>
+                            <td>
+                            <a href="{{ asset('uploads/aspirasi/' . $a->inputAspirasi->foto) }}" target="_blank">
+                                <img src="{{ asset('uploads/aspirasi/' . $a->inputAspirasi->foto) }}" 
+                                    alt="bukti" 
+                                    class="rounded shadow-sm" 
+                                    style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #ddd;">
+                            </a>
                             </td>
                             <td class="text-center">
                                 @php $status = strtolower($a->status); @endphp

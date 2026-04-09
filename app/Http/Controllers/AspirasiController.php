@@ -62,13 +62,22 @@ class AspirasiController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi
+        // 1. Validasi (tambahin 'foto' biar aman)
         $request->validate([
             'nis'         => 'required',
             'id_kategori' => 'required',
             'lokasi'      => 'required',
             'ket'         => 'required',
+            'foto'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Tambahkan ini
         ]);
+
+        // Logika Upload Foto
+        $nama_foto = 'default.png'; // Nilai awal kalau gak upload
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $nama_foto = time() . "_" . $file->getClientOriginalName();
+            $file->move(public_path('uploads/aspirasi'), $nama_foto);
+        }
 
         // 2. Simpan ke tabel input_aspirasi
         $simpan = InputAspirasi::create([
@@ -76,7 +85,7 @@ class AspirasiController extends Controller
             'id_kategori' => $request->id_kategori,
             'lokasi'      => $request->lokasi,
             'ket'         => $request->ket,
-            'foto'        => 'default.png', 
+            'foto'        => $nama_foto, // Pakai variabel $nama_foto hasil upload tadi
         ]);
 
         // 3. Simpan ke tabel aspirasi (biar statusnya gak null)
@@ -89,7 +98,7 @@ class AspirasiController extends Controller
         }
 
         return redirect('/history-aspirasi')->with('success', 'Aspirasi berhasil dikirim!');
-    } // Penutup fungsi store
+    }
 
     public function updateStatus(Request $request, $id)
     {
@@ -121,5 +130,11 @@ class AspirasiController extends Controller
 
         // Kirim ke view (variabel nisSiswa tetap dikirim buat jaga-jaga kalau mau ditampilin)
         return view('siswa.history', compact('aspirasi', 'nisSiswa'));
+    }
+
+    public function inputAspirasi()
+    {
+        // Pastikan 'id_pelaporan' adalah foreign key yang menyambungkan kedua tabel
+        return $this->belongsTo(InputAspirasi::class, 'id_pelaporan', 'id_pelaporan');
     }
 }
