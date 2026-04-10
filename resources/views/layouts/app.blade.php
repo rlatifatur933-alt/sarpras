@@ -6,6 +6,8 @@
     <title>Sarpras App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f4f7f6; }
         .sidebar { height: 100vh; width: 250px; position: fixed; background: #2c3e50; color: white; transition: all 0.3s; }
@@ -14,6 +16,22 @@
         .sidebar a.active { background: #1a252f; color: white; border-left: 4px solid #3498db; }
         .main-content { margin-left: 250px; padding: 30px; }
         .card { border: none; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .nav-link {
+            color: rgba(255,255,255,0.7);
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .nav-link.active {
+            background: #3498db !important; /* Warna biru */
+            color: white !important;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -27,10 +45,16 @@
             @auth
                 {{-- Ini hanya tampil kalau sudah LOGIN --}}
                 @if(auth()->user()->role == 'admin')
-                    <h6 class="text-muted small uppercase">Menu Admin</h6>
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
-                    <a href="{{ route('kategori.index') }}" class="nav-link {{ request()->is('kategori*') ? 'active' : '' }}">Kategori Barang</a>
-                    <a href="{{ route('aspirasi.index') }}" class="nav-link {{ request()->is('admin/aspirasi*') ? 'active' : '' }}">Laporan Kerusakan</a>
+                    <h6 class="text-muted small uppercase mb-3 ps-2" style="letter-spacing: 1px;"></h6>
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('dashboard') ? 'active' : '' }}">
+                        <i class="bi bi-speedometer2 me-3"></i> Dashboard
+                    </a>
+                    <a href="{{ route('kategori.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('kategori*') ? 'active' : '' }}">
+                        <i class="bi bi-grid-1x2-fill me-3"></i> Kategori Barang
+                    </a>
+                    <a href="{{ route('aspirasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/aspirasi*') ? 'active' : '' }}">
+                        <i class="bi bi-megaphone-fill me-3"></i> Laporan Kerusakan
+                    </a>
                 @else
                     <h6 class="text-muted small uppercase">Menu Siswa</h6>
                     <a href="{{ url('/history-aspirasi') }}" class="nav-link">Riwayat Laporan</a>
