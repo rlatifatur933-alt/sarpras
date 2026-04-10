@@ -59,7 +59,8 @@
         .nav-link:hover { color: #435ebe; }
         
         .hero-img {
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.1));
+            max-height: 400px;
         }
     </style>
 </head>
@@ -110,7 +111,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">
-                    <img src="https://img.freepik.com/free-vector/maintenance-concept-illustration_114360-391.jpg" class="img-fluid hero-img" ...>
+                     <img src="{{ asset('img/hero-sarprasin.png') }}" class="img-fluid hero-img" alt="Logo Sarprasin">
                 </div>
             </div>
         </div>

@@ -148,7 +148,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 text-center">
-                    <img src="https://img.freepik.com/free-vector/maintenance-concept-illustration_114360-391.jpg" class="img-fluid hero-img" ...>
+                    <img src="{{ asset('img/hero-sarprasin.png') }}" class="img-fluid hero-img" alt="Logo Sarprasin">
                 </div>
             </div>
         </div>
