@@ -14,7 +14,7 @@
                     <a class="nav-link mx-2" href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#tentang">Tentang</a>
+                    <a class="nav-link mx-2" href="#tentang"></a>
                 </li>
 
                 {{-- Cek Status Login --}}
