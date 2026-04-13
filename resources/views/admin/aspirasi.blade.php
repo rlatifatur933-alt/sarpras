@@ -1,18 +1,47 @@
 @extends('layouts.app') 
 @section('content')
 <style>
-    /* Import font biar lebih modern */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-    body {
-        background-color: #f3f4f7;
-        font-family: 'Inter', sans-serif;
-        color: #334155;
+    
+    .page-heading h2 {
+        color: #25396f !important;
+        font-weight: 800 !important;
+        font-size: 2.1rem !important;
+        letter-spacing: -1.2px !important;
+        margin-bottom: 8px !important;
+        display: inline-block;
+        position: relative;
     }
 
-    /* Sidebar Styling */
+    .page-heading h2::after {
+        content: '';
+        display: block;
+        width: 60%; 
+        height: 6px;
+        background: linear-gradient(90deg, #435ebe 0%, rgba(67, 94, 190, 0.1) 100%);
+        border-radius: 10px;
+        margin-top: 5px;
+    }
+
+    .page-heading p, 
+    .text-subtitle {
+        color: #6c757d !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        margin-top: 10px !important;
+        opacity: 0.8;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    body {
+        background-color: #f0f7ff; 
+        font-family: 'Inter', sans-serif;
+        color: #334155;
+        min-height: 100vh;
+    }
+
     .sidebar {
-        background: #1e293b !important; /* Navy gelap yang lebih elegan */
+        background: #1e293b !important; 
         padding-top: 20px;
     }
 
@@ -24,93 +53,94 @@
     }
 
     .sidebar .nav-link.active {
-        background-color: #334155 !important;
-        color: #f8fafc !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 8px 8px 0;
         font-weight: 600;
     }
 
-    .sidebar .nav-link:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-        color: #fff;
-    }
-
-    /* Container & Card */
     .main-content {
         padding: 30px;
     }
 
     .card-custom {
-        background: #ffffff;
+        background: transparent;
         border: none;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        padding: 20px;
     }
 
-    /* Tabel Styling */
     .table {
         border-collapse: separate;
-        border-spacing: 0 8px; /* Kasih jarak antar baris */
+        border-spacing: 0 12px; 
     }
 
     .table thead th {
-        background: transparent;
-        border: none;
-        color: #64748b;
-        font-size: 0.75rem;
+        border: none !important;
+        color: #25396f !important; 
+        font-size: 0.9rem !important; 
+        font-weight: 800 !important; 
         text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding: 15px;
+        letter-spacing: 0.5px;
+        padding: 15px !important;
     }
 
     .table tbody tr {
         background-color: #ffffff;
-        transition: transform 0.2s;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        transition: all 0.3s ease;
     }
 
     .table tbody tr td {
         vertical-align: middle;
-        border-top: 1px solid #f1f5f9;
-        border-bottom: 1px solid #f1f5f9;
-        padding: 15px;
+        border: none;
+        padding: 20px 15px;
     }
 
-    /* Efek pas baris di-hover */
+    .table tbody tr td:first-child {
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+        border-left: 5px solid #3b82f6;
+    }
+
+    .table tbody tr td:last-child {
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
+
     .table tbody tr:hover {
-        background-color: #f8fafc;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         cursor: pointer;
     }
 
-    /* Styling Status Badge (Biar gak kaku) */
     .badge {
-        padding: 6px 12px;
-        border-radius: 30px; /* Bentuk kapsul */
-        font-weight: 500;
-        font-size: 0.75rem;
+        padding: 8px 14px;
+        border-radius: 10px; 
+        font-weight: 700;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    .status-pending {
-        background-color: #fee2e2;
-        color: #991b1b;
+    .status-pending { background-color: #ffe5e5; color: #d9534f; }
+    .status-progress { background-color: #fff4e5; color: #f0ad4e; }
+    .status-done { background-color: #e5f9e7; color: #28a745; }
+
+    .table img {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .status-progress {
-        background-color: #fef3c7;
-        color: #92400e;
-    }
-
-    .status-done {
-        background-color: #dcfce7;
-        color: #166534;
-    }
-
-    /* Button Edit Custom */
     .btn-outline-edit {
         border: 1.5px solid #e2e8f0;
         background: white;
         color: #64748b;
-        border-radius: 8px;
-        font-weight: 500;
+        border-radius: 10px;
+        font-weight: 600;
+        padding: 8px 16px;
         transition: all 0.2s;
     }
 
@@ -118,11 +148,12 @@
         background: #3b82f6;
         color: white;
         border-color: #3b82f6;
+        transform: translateY(-2px);
     }
 </style>
 <div class="page-heading">
-    <h3 class="fw-bold">Data Pengaduan Sarana</h3>
-    <p class="text-muted">Manajemen Pengaduan Sarana dan Prasarana</p>
+    <h2>Data Pengaduan Sarana</h2>
+    <p>Manajemen Pengaduan Sarana dan Prasarana</p>
 </div>
 
 <div class="page-content">
