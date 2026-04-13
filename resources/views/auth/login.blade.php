@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body {
-            background-color: #ebf3ff; /* Warna background khas Mazer */
+            background-color: #ebf3ff; 
             height: 100vh;
             display: flex;
             align-items: center;
@@ -22,7 +22,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         .btn-mazer {
-            background-color: #435ebe; /* Biru Mazer */
+            background-color: #435ebe; 
             color: white;
             border: none;
             padding: 10px;
@@ -54,9 +54,9 @@
             <div class="col-md-4 col-sm-12">
                 <div class="card login-card p-4">
                     <div class="text-center mb-4">
-                        <div class="brand-icon mb-2">
-                            <i class="fas fa-tools"></i>
-                        </div>
+                    <div class="brand-icon mb-2">
+                        <img src="{{ asset('img/logo-sarprasin.png') }}" alt="Logo" style="width: 60px;">
+                    </div>
                         <h3 class="fw-bold" style="color: #25396f;">Log In</h3>
                         <p class="text-muted small">Input your data to register to our website.</p>
                     </div>
