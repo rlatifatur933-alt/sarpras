@@ -26,11 +26,13 @@
                         </li>
                     @else
                         {{-- Button KHUSUS SISWA --}}
-                        <li class="nav-item">
-                                <a href="{{ url('/history-aspirasi') }}" class="btn btn-success px-4 rounded-pill text-white">
-                                <i class="bi bi-clock-history me-1"></i> Laporanku
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn btn-primary btn-kirim-laporan" href="{{ route('aspirasi.create') }}">
+                                <i class="bi bi-plus-circle me-1"></i> Kirim Laporan
                             </a>
                         </li>
+
+                        
                     @endif
 
                     {{-- Dropdown Logout --}}
