@@ -58,3 +58,8 @@ Route::post('/logout', function () {
 Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
+
+// Halaman utama data siswa
+Route::get('/admin/siswa', [SiswaController::class, 'index'])->name('siswa.index');
+Route::put('/admin/siswa/{user_id}', [SiswaController::class, 'update'])->name('siswa.update');
+Route::post('/admin/siswa/store', [SiswaController::class, 'store'])->name('siswa.store');

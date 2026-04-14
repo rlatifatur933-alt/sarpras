@@ -57,6 +57,9 @@
                     <a href="{{ route('aspirasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/aspirasi*') ? 'active' : '' }}">
                         <i class="bi bi-megaphone-fill me-3"></i> Laporan Kerusakan
                     </a>
+                    <a href="{{ route('siswa.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/siswa*') ? 'active' : '' }}">
+                        <i class="bi bi-people-fill me-3"></i> Data Siswa
+                    </a>
                 @else
                     <h6 class="text-muted small uppercase">Menu Siswa</h6>
                     <a href="{{ url('/history-aspirasi') }}" class="nav-link">Riwayat Laporan</a>
