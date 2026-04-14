@@ -204,46 +204,48 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-outline-edit" data-bs-toggle="modal" data-bs-target="#modalUpdate{{ $row->id_pelaporan }}">
-                                    <i class="bi bi-pencil"></i> Edit
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $row->id_pelaporan }}">
+                                    Edit
                                 </button>
-
-                                <div class="modal fade" id="modalUpdate{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <form action="{{ route('aspirasi.update', $row->id_pelaporan) }}" method="POST">
-                                            @csrf
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title text-dark">Update Laporan #{{ $row->id_pelaporan }}</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body text-start text-dark">
-                                                    <div class="mb-3">
-                                                        <label class="fw-bold">Status</label>
-                                                        <select name="status" class="form-select">
-                                                            <option value="menunggu" {{ ($row->aspirasi->status ?? '') == 'menunggu' ? 'selected' : '' }}>Pending</option>
-                                                            <option value="proses" {{ ($row->aspirasi->status ?? '') == 'proses' ? 'selected' : '' }}>In Progress</option>
-                                                            <option value="selesai" {{ ($row->aspirasi->status ?? '') == 'selesai' ? 'selected' : '' }}>Done</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="fw-bold text-dark">Feedback Admin</label>
-                                                        <textarea name="feedback" class="form-control" rows="3">{{ $row->aspirasi->feedback ?? '' }}</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+    
+                @foreach($laporan as $row)
+                    <div class="modal fade" id="editModal{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="{{ route('aspirasi.update', $row->id_pelaporan) }}" method="POST">
+                                    @csrf
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Update Laporan #{{ $row->id_pelaporan }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        <div class="mb-3">
+                                            <label class="fw-bold">Status</label>
+                                            <select name="status" class="form-select">
+                                                <option value="menunggu" {{ ($row->aspirasi->status ?? '') == 'menunggu' ? 'selected' : '' }}>Pending</option>
+                                                <option value="proses" {{ ($row->aspirasi->status ?? '') == 'proses' ? 'selected' : '' }}>In Progress</option>
+                                                <option value="selesai" {{ ($row->aspirasi->status ?? '') == 'selesai' ? 'selected' : '' }}>Done</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="fw-bold">Feedback Admin</label>
+                                            <textarea name="feedback" class="form-control" rows="3">{{ $row->aspirasi->feedback ?? '' }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

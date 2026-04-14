@@ -1,8 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="page-heading">
-    <h3>Data Siswa</h3>
+<style>
+    .page-title {
+        font-weight: 800;
+        color: #25396f; 
+        position: relative;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    .page-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        height: 4px;
+        width: 40px;
+        background: #435ebe; 
+        border-radius: 10px;
+    }
+
+    #table1 thead th {
+        background-color: #435ebe; 
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    #table1 tbody tr:hover {
+        background-color: #f0f3ff !important;
+        transition: 0.3s;
+    }
+
+    #table1 td, #table1 th {
+        padding: 12px 15px !important;
+    }
+</style>
+<div class="d-flex align-items-center mb-4">
+    <div class="stats-icon purple me-3" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">
+        <i class="bi bi-people-fill text-white fs-4"></i>
+    </div>
+    <div>
+        <h3 class="fw-bold mb-0">Data Siswa</h3>
+        <span class="text-muted">Total Siswa Terdaftar: <b>{{ $siswa->count() }}</b></span>
+    </div>
 </div>
 <div class="page-content">
     <section class="section">
