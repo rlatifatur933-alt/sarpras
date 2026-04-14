@@ -118,17 +118,19 @@ class AspirasiController extends Controller
 
     public function history()
     {
-        // Ambil username dari user yang login (sekarang isinya '12345')
-        $nisSiswa = auth()->user()->username;
+        // Cari data siswa yang punya user_id sama dengan yang lagi login
+        $siswa = \App\Models\Siswa::where('user_id', auth()->user()->id)->first();
 
-        // Ambil data dari tabel Aspirasi yang punya relasi ke InputAspirasi dengan NIS tersebut
-        $aspirasi = \App\Models\Aspirasi::whereHas('inputAspirasi', function ($query) use ($nisSiswa) {
-            return $query->where('nis', $nisSiswa);
-        })
-        ->latest()
-        ->get();
+        // Kalau ketemu, ambil NIS-nya. Kalau nggak, kasih fallback
+        $nisSiswa = $siswa ? $siswa->nis : 'data_tidak_ada';
 
-        // Kirim ke view (variabel nisSiswa tetap dikirim buat jaga-jaga kalau mau ditampilin)
+        // Sekarang query-nya pasti nyari angka NIS, bukan nama
+        $aspirasi = \App\Models\InputAspirasi::with('aspirasi')
+                    ->where('nis', $nisSiswa)
+                    ->latest()
+                    ->get();
+
+        // Hapus dd() nya kalau sudah yakin
         return view('siswa.history', compact('aspirasi', 'nisSiswa'));
     }
 

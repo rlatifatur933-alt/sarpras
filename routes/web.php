@@ -63,3 +63,4 @@ Route::get('/tentang', function () {
 Route::get('/admin/siswa', [SiswaController::class, 'index'])->name('siswa.index');
 Route::put('/admin/siswa/{user_id}', [SiswaController::class, 'update'])->name('siswa.update');
 Route::post('/admin/siswa/store', [SiswaController::class, 'store'])->name('siswa.store');
+Route::delete('/admin/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');

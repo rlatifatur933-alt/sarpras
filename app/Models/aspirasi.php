@@ -8,15 +8,13 @@ class Aspirasi extends Model
 {
     protected $table = 'aspirasi';
     
-    // Tambahkan ini juga di sini!
-    protected $primaryKey = 'id_aspirasi'; // atau apa nama PK di tabel aspirasimu
     
-    // Ini WAJIB ada agar id_pelaporan boleh diisi lewat Controller
+    protected $primaryKey = 'id_aspirasi'; 
+    
     protected $fillable = ['id_pelaporan', 'status', 'feedback']; 
 
     public function inputAspirasi()
     {
-        // Pastiin 'id_pelaporan' itu kolom penyambung di kedua tabel
         return $this->belongsTo(InputAspirasi::class, 'id_pelaporan', 'id_pelaporan');
     }
     

@@ -42,7 +42,7 @@
                         <tr>
                             <td class="text-center fw-bold text-muted">{{ $key + 1 }}</td>
                             <td>
-                                <div class="fw-bold text-dark">{{ Str::limit($a->inputAspirasi->ket ?? 'Tanpa Keterangan', 40) }}</div>
+                                <div class="fw-bold text-dark">{{ Str::limit($a->ket ?? 'Tanpa Keterangan', 40) }}</div>
                                 <small class="text-muted">ID: #{{ $a->id_pelaporan }}</small>
                             </td>
                             <td>
@@ -51,24 +51,27 @@
                                 </span>
                             </td>
                             <td>
-                            <a href="{{ asset('uploads/aspirasi/' . $a->inputAspirasi->foto) }}" target="_blank">
-                                <img src="{{ asset('uploads/aspirasi/' . $a->inputAspirasi->foto) }}" 
-                                    alt="bukti" 
-                                    class="rounded shadow-sm" 
+                            <a href="{{ asset('uploads/aspirasi/' . $a->foto) }}" target="_blank">
+                                <img src="{{ asset('uploads/aspirasi/' . $a->foto) }}" 
+                                    alt="bukti" class="rounded shadow-sm" 
                                     style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #ddd;">
                             </a>
                             </td>
                             <td class="text-center">
-                                @php $status = strtolower($a->status); @endphp
-                                @if($status == 'menunggu' || $status == 'pending')
-                                    <span class="badge rounded-pill bg-light-danger text-danger px-3">Menunggu</spa--n>
-                                @elseif($status == 'proses' || $status == 'in progress')
-                                    <span class="badge rounded-pill bg-light-warning text-warning px-3">Diproses</span>
-                                @elseif($status == 'selesai')
-                                    <span class="badge rounded-pill bg-light-success text-success px-3">Selesai</span>
-                                @else
-                                    <span class="badge rounded-pill bg-light-secondary text-secondary px-3">{{ $a->status }}</span>
-                                @endif
+                            @php 
+                                // Ambil status dari tabel relasi, kalau belum ada kasih default 'menunggu'
+                                $status = strtolower($a->aspirasi->status ?? 'menunggu'); 
+                            @endphp
+
+                            @if($status == 'menunggu' || $status == 'pending')
+                                <span class="badge rounded-pill bg-light-danger text-danger px-3">Menunggu</span>
+                            @elseif($status == 'proses' || $status == 'in progress')
+                                <span class="badge rounded-pill bg-light-warning text-warning px-3">Diproses</span>
+                            @elseif($status == 'selesai')
+                                <span class="badge rounded-pill bg-light-success text-success px-3">Selesai</span>
+                            @else
+                                <span class="badge rounded-pill bg-light-secondary text-secondary px-3">{{ ucfirst($status) }}</span>
+                            @endif
                             </td>
                         </tr>
                         @empty

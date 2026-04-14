@@ -31,10 +31,20 @@
                             <td>{{ $s->nis }}</td>
                             <td>{{ $s->username }}</td> 
                             <td>{{ $s->user->email ?? 'Email tidak ditemukan' }}</td>
-                            <td>
-                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $s->user_id }}">
-                                    <i class="bi bi-pencil"></i> Ganti Email
-                                </button>
+                            <td class="text-center" style="vertical-align: middle;">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <button class="btn btn-sm btn-warning d-flex align-items-center" style="height: 32px; min-width: 80px; justify-content: center;" data-bs-toggle="modal" data-bs-target="#editModal{{ $s->user_id }}">
+                                        <i class="bi bi-pencil-square me-1"></i> Edit
+                                    </button>
+
+                                    <form action="{{ route('siswa.destroy', $s->user_id) }}" method="POST" onsubmit="return confirm('Yakin mau hapus?')" class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger d-flex align-items-center" style="height: 32px; min-width: 80px; justify-content: center;">
+                                            <i class="bi bi-trash me-1"></i> Hapus
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
 
@@ -48,9 +58,24 @@
                                             <h5 class="modal-title">Update Email Siswa</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="form-group">
-                                                <label>Email Baru</label>
+                                            <div class="form-group mb-2">
+                                                <label>Nama Siswa</label>
+                                                <input type="text" name="username" class="form-control" value="{{ $s->username }}" required>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label>NIS</label>
+                                                <input type="text" name="nis" class="form-control" value="{{ $s->nis }}" required>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label>Email Akun</label>
                                                 <input type="email" name="email" class="form-control" value="{{ $s->user->email ?? '' }}" required>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label>Password Baru (Kosongkan jika tidak ingin ganti)</label>
+                                                <input type="password" name="password" class="form-control" placeholder="Masukkan password baru">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
