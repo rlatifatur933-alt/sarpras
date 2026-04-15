@@ -54,12 +54,39 @@
                                 <form action="{{ route('kategori.destroy', $k->id_kategori) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
+                                    <button type="button" class="btn btn-link text-primary text-decoration-none p-0 fw-semibold me-3" data-bs-toggle="modal" data-bs-target="#editKategori{{ $k->id_kategori }}">
+                                        <i class="bi bi-pencil-square me-1"></i>Edit
+                                    </button>
                                     <button type="submit" class="btn btn-link text-danger text-decoration-none p-0 fw-semibold" onclick="return confirm('Yakin ingin menghapus kategori ini?')">
                                         <i class="bi bi-trash3 me-1"></i>Hapus
                                     </button>
                                 </form>
                             </td>
                         </tr>
+                        <div class="modal fade" id="editKategori{{ $k->id_kategori }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit Kategori</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('kategori.update', $k->id_kategori) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-body text-start">
+                                            <div class="mb-3">
+                                                <label class="fw-bold">Nama Kategori</label>
+                                                <input type="text" name="ket_kategori" class="form-control" value="{{ $k->ket_kategori }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         @endforeach
                     </tbody>
                 </table>
