@@ -35,6 +35,7 @@
                             <th width="20%">Tanggal</th>
                             <th width="17%">Foto</th>
                             <th width="15%" class="text-center">Status</th>
+                            <th>Feedback Admin</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,6 +73,13 @@
                             @else
                                 <span class="badge rounded-pill bg-light-secondary text-secondary px-3">{{ ucfirst($status) }}</span>
                             @endif
+                            </td>
+                            <td class="text-center">
+                                @if($a->aspirasi && $a->aspirasi->feedback)
+                                    <span class="text-muted">{{ $a->aspirasi->feedback }}</span>
+                                @else
+                                    <span class="text-muted small italic">Belum ada feedback</span>
+                                @endif
                             </td>
                         </tr>
                         @empty

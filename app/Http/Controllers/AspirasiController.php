@@ -15,7 +15,6 @@ class AspirasiController extends Controller
         $proses = Aspirasi::where('status', 'proses')->count();
         $selesai = Aspirasi::where('status', 'selesai')->count();
     
-        // Hitung Persentase (biar aman dari error pembagian nol)
         $p_menunggu = $total > 0 ? round(($menunggu / $total) * 100) : 0;
         $p_proses = $total > 0 ? round(($proses / $total) * 100) : 0;
         $p_selesai = $total > 0 ? round(($selesai / $total) * 100) : 0;
@@ -25,13 +24,12 @@ class AspirasiController extends Controller
 
     public function index() 
     {
-        // Ambil statistik untuk kotak di atas (biar gak error undefined variable)
         $total = \App\Models\InputAspirasi::count();
         $menunggu = \App\Models\Aspirasi::where('status', 'menunggu')->count();
         $proses = \App\Models\Aspirasi::where('status', 'proses')->count();
         $selesai = \App\Models\Aspirasi::where('status', 'selesai')->count();
 
-        // Ambil data laporan lengkap dengan relasinya
+        
         $laporan = \App\Models\InputAspirasi::with(['siswa', 'kategori', 'aspirasi'])->latest()->get();
 
         return view('admin.aspirasi', compact('total', 'menunggu', 'proses', 'selesai', 'laporan'));
@@ -55,40 +53,35 @@ class AspirasiController extends Controller
 
     public function create()
     {
-        // Ambil semua kategori dari database
         $kategori = \App\Models\kategori::all();
         return view('siswa.from_laporan', compact('kategori'));
     }
 
     public function store(Request $request)
     {
-        // 1. Validasi (tambahin 'foto' biar aman)
         $request->validate([
             'nis'         => 'required',
             'id_kategori' => 'required',
             'lokasi'      => 'required',
             'ket'         => 'required',
-            'foto'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Tambahkan ini
+            'foto'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
         ]);
 
-        // Logika Upload Foto
-        $nama_foto = 'default.png'; // Nilai awal kalau gak upload
+        $nama_foto = 'default.png'; 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $nama_foto = time() . "_" . $file->getClientOriginalName();
             $file->move(public_path('uploads/aspirasi'), $nama_foto);
         }
 
-        // 2. Simpan ke tabel input_aspirasi
         $simpan = InputAspirasi::create([
             'nis'         => $request->nis,
             'id_kategori' => $request->id_kategori,
             'lokasi'      => $request->lokasi,
             'ket'         => $request->ket,
-            'foto'        => $nama_foto, // Pakai variabel $nama_foto hasil upload tadi
+            'foto'        => $nama_foto, 
         ]);
 
-        // 3. Simpan ke tabel aspirasi (biar statusnya gak null)
         if ($simpan) {
             aspirasi::create([
                 'id_pelaporan' => $simpan->id_pelaporan,
@@ -102,7 +95,6 @@ class AspirasiController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        // Cari data aspirasi berdasarkan ID (id_pelaporan)
         $aspirasi = \App\Models\Aspirasi::where('id_pelaporan', $id)->first();
 
         if ($aspirasi) {
@@ -118,25 +110,20 @@ class AspirasiController extends Controller
 
     public function history()
     {
-        // Cari data siswa yang punya user_id sama dengan yang lagi login
         $siswa = \App\Models\Siswa::where('user_id', auth()->user()->id)->first();
 
-        // Kalau ketemu, ambil NIS-nya. Kalau nggak, kasih fallback
         $nisSiswa = $siswa ? $siswa->nis : 'data_tidak_ada';
 
-        // Sekarang query-nya pasti nyari angka NIS, bukan nama
         $aspirasi = \App\Models\InputAspirasi::with('aspirasi')
                     ->where('nis', $nisSiswa)
                     ->latest()
                     ->get();
 
-        // Hapus dd() nya kalau sudah yakin
         return view('siswa.history', compact('aspirasi', 'nisSiswa'));
     }
 
     public function inputAspirasi()
     {
-        // Pastikan 'id_pelaporan' adalah foreign key yang menyambungkan kedua tabel
         return $this->belongsTo(InputAspirasi::class, 'id_pelaporan', 'id_pelaporan');
     }
 }
