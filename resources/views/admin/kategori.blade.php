@@ -15,9 +15,9 @@
             <h4 class="fw-bold text-dark mb-1">Daftar Kategori Aspirasi</h4>
             <p class="text-muted small mb-0">Kelola kategori sarana dan prasarana sekolah</p>
         </div>
-        <a href="{{ route('kategori.store') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
+        <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalTambah">
             <i class="bi bi-plus-circle me-2"></i>Tambah Kategori
-        </a>
+        </button>
     </div>
 
     <div class="card border-0 shadow-sm rounded-4">
@@ -87,26 +87,34 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <form action="{{ route('kategori.store') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Tambah Kategori</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            <div class="mb-3">
+                                                <label class="fw-bold">Nama Kategori</label>
+                                                <input type="text" name="ket_kategori" class="form-control" placeholder="Masukkan nama kategori..." required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modalTambah" tabindex="-1">
-    <div class="modal-dialog">
-        <form action="{{ route('kategori.store') }}" method="POST" class="modal-content">
-            @csrf
-            <div class="modal-header"><h5>Tambah Kategori</h5></div>
-            <div class="modal-body">
-                <input type="text" name="ket_kategori" class="form-control" placeholder="Nama Kategori" required>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Simpan</button>
-            </div>
-        </form>
     </div>
 </div>
 @endsection
