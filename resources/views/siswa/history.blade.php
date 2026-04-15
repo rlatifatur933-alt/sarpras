@@ -64,14 +64,12 @@
                                 $status = strtolower($a->aspirasi->status ?? 'menunggu'); 
                             @endphp
 
-                            @if($status == 'menunggu' || $status == 'pending')
-                                <span class="badge rounded-pill bg-light-danger text-danger px-3">Menunggu</span>
-                            @elseif($status == 'proses' || $status == 'in progress')
-                                <span class="badge rounded-pill bg-light-warning text-warning px-3">Diproses</span>
+                            @if($status == 'menunggu')
+                                <span class="badge bg-warning"><i class="bi bi-clock-history me-1"></i> Menunggu</span>
+                            @elseif($status == 'proses')
+                                <span class="badge bg-primary"><i class="bi bi-gear-fill me-1"></i> Diproses</span>
                             @elseif($status == 'selesai')
-                                <span class="badge rounded-pill bg-light-success text-success px-3">Selesai</span>
-                            @else
-                                <span class="badge rounded-pill bg-light-secondary text-secondary px-3">{{ ucfirst($status) }}</span>
+                                <span class="badge bg-success"><i class="bi bi-check-circle-fill me-1"></i> Selesai</span>
                             @endif
                             </td>
                             <td class="text-center">

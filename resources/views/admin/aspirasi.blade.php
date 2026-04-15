@@ -220,7 +220,7 @@
                                 <form action="{{ route('aspirasi.update', $row->id_pelaporan) }}" method="POST">
                                     @csrf
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Update Laporan #{{ $row->id_pelaporan }}</h5>
+                                        <h5 class="modal-title">Update Laporan: {{ $row->siswa->username }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
                                     <div class="modal-body text-start">
