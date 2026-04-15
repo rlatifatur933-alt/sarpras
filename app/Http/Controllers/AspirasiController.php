@@ -54,7 +54,8 @@ class AspirasiController extends Controller
     public function create()
     {
         $kategori = \App\Models\kategori::all();
-        return view('siswa.from_laporan', compact('kategori'));
+        $lokasi = \App\Models\Lokasi::all();
+        return view('siswa.from_laporan', compact('kategori', 'lokasi'));
     }
 
     public function store(Request $request)

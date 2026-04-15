@@ -5,6 +5,7 @@ use App\Models\Kategori;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\InputAspirasiController;
 use App\Http\Controllers\AspirasiController;
 use App\Http\Controllers\AuthController; 
@@ -25,6 +26,9 @@ Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.in
 Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
 Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
 Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+
+// Route lokasi
+Route::resource('lokasi', LokasiController::class);
 
 // Halaman form untuk siswa
 Route::get('/kirim-aspirasi', [AspirasiController::class, 'create'])->name('aspirasi.create');

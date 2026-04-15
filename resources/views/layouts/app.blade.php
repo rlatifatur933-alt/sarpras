@@ -54,6 +54,9 @@
                     <a href="{{ route('kategori.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('kategori*') ? 'active' : '' }}">
                         <i class="bi bi-grid-1x2-fill me-3"></i> Kategori Barang
                     </a>
+                    <a href="{{ route('lokasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/lokasi*') ? 'active' : '' }}">
+                        <i class="bi bi-geo-alt-fill me-3"></i> Data Lokasi
+                    </a>
                     <a href="{{ route('aspirasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/aspirasi*') ? 'active' : '' }}">
                         <i class="bi bi-megaphone-fill me-3"></i> Laporan Kerusakan
                     </a>

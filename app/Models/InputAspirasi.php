@@ -25,4 +25,8 @@ class InputAspirasi extends Model
     {
         return $this->hasOne(Aspirasi::class, 'id_pelaporan', 'id_pelaporan');
     }
+
+    public function lokasi() {
+        return $this->belongsTo(Lokasi::class, 'id_lokasi');
+    }
 }

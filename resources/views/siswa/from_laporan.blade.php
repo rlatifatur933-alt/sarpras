@@ -50,16 +50,14 @@
                         </select>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Lokasi</label>
-                        <select name="lokasi" class="form-select" required>
-                            <option value="">-- Pilih lokasi --</option>
-                            <option value="Ruang Kelas">Ruang Kelas</option>
-                            <option value="Kamar Mandi">Kamar Mandi</option>
-                            <option value="Lab">Lab</option>
-                            <option value="Lainnya">Lainnya</option>
-                        </select>
-                    </div>
+                    <select name="lokasi" class="form-select" required>
+                        <option value="" selected disabled>-- Pilih lokasi --</option>
+                        
+                        {{-- Ini bagian yang bikin otomatis nyambung ke data Admin --}}
+                        @foreach($lokasi as $l)
+                            <option value="{{ $l->nama_lokasi }}">{{ $l->nama_lokasi }}</option>
+                        @endforeach
+                    </select>
 
                     <div class="mb-3">
                         <label class="form-label">Foto Bukti Kerusakan</label>

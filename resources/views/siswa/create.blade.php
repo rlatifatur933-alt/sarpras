@@ -24,10 +24,14 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" class="form-control" required>
-                </div>
+                <select name="lokasi" class="form-select" required>
+                        <option value="" selected disabled>-- Pilih lokasi --</option>
+                        
+                        {{-- Ini bagian yang bikin otomatis nyambung ke data Admin --}}
+                        @foreach($lokasi as $l)
+                           <option value="{{ $l->nama_lokasi }}">{{ $l->nama_lokasi }}</option>
+                        @endforeach
+                </select>
                 <div class="mb-3">
                     <label>Isi Laporan</label>
                     <textarea name="ket" class="form-control" rows="3" required></textarea>
