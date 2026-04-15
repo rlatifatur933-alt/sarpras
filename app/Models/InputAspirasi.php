@@ -8,21 +8,17 @@ class InputAspirasi extends Model
 {
     protected $table = 'input_aspirasi';
     protected $primaryKey = 'id_pelaporan';
-
     protected $fillable = ['nis', 'id_kategori', 'lokasi', 'ket', 'foto'];
 
-    public function siswa()
-    {
+    public function siswa() {
         return $this->belongsTo(Siswa::class, 'nis', 'nis');
     }
 
-    public function kategori()
-    {
+    public function kategori() {
         return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
     }
 
-    public function aspirasi()
-    {
+    public function aspirasi() {
         return $this->hasOne(Aspirasi::class, 'id_pelaporan', 'id_pelaporan');
     }
 

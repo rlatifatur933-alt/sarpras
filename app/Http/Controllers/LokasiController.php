@@ -11,14 +11,12 @@ class LokasiController extends Controller
     public function index()
     {
         $lokasi = \App\Models\Lokasi::all();
-
         return view('admin.lokasi', compact('lokasi'));
     }
 
     public function create()
     {
         $lokasi = \App\Models\Lokasi::all();
-
         return view('siswa.aspirasi', compact('lokasi')); 
     }
 
@@ -33,7 +31,6 @@ class LokasiController extends Controller
         return redirect()->route('lokasi.index')->with('success', 'Lokasi berhasil ditambah!');
     }
 
-    // Mengupdate data lokasi
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -46,7 +43,6 @@ class LokasiController extends Controller
         return redirect()->route('lokasi.index')->with('success', 'Lokasi berhasil diupdate!');
     }
 
-    // Menghapus data lokasi
     public function destroy($id)
     {
         $lokasi = Lokasi::findOrFail($id);

@@ -14,12 +14,10 @@ class KategoriController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'ket_kategori' => 'required|string|max:255',
         ]);
     
-        // Simpan ke database
         Kategori::create([
             'ket_kategori' => $request->ket_kategori
         ]);
