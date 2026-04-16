@@ -15,21 +15,25 @@ class SiswaController extends Controller
 
     public function dashboard()
     {
-        $nis = auth()->user()->username; 
+        $userId = auth()->user()->id;
 
-        $total_laporan = Aspirasi::whereHas('inputAspirasi', function($query) use ($nis) {
-            $query->where('nis', $nis);
+        $siswa = \App\Models\Siswa::where('user_id', $userId)->first();
+        
+        $nisUser = $siswa ? $siswa->nis : null;
+
+        $total_laporan = Aspirasi::whereHas('inputAspirasi', function($query) use ($nisUser) {
+            $query->where('nis', $nisUser); 
         })->count();
-
+        
         $laporan_pending = Aspirasi::where('status', 'Menunggu')
-        ->whereHas('inputAspirasi', function($query) use ($nis) {
-            $query->where('nis', $nis);
-        })->count();
-
+            ->whereHas('inputAspirasi', function($query) use ($nisUser) {
+                $query->where('nis', $nisUser);
+            })->count();
+                            
         $laporan_selesai = Aspirasi::where('status', 'Selesai')
-        ->whereHas('inputAspirasi', function($query) use ($nis) {
-            $query->where('nis', $nis);
-        })->count();
+            ->whereHas('inputAspirasi', function($query) use ($nisUser) {
+                $query->where('nis', $nisUser);
+            })->count();
 
         return view('siswa.dashboard', compact('total_laporan', 'laporan_pending', 'laporan_selesai'));
     }
