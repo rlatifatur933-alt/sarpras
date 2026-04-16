@@ -103,7 +103,7 @@
                             <th>
                                 <i class="bi bi-geo-alt me-1"></i> Nama Lokasi
                             </th>
-                            <th class="text-end pe-4" width="20%">
+                            <th class="text-center pe-4 border-0 py-3" width="20%">
                                 <i class="bi bi-gear me-1"></i> Aksi
                             </th>
                         </tr>

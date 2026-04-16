@@ -64,7 +64,7 @@
                             <th>NIS</th>
                             <th>Nama Siswa</th>
                             <th>Email (Akun)</th>
-                            <th>Aksi</th>
+                            <th class="text-center pe-4 border-0 py-3" width="15%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

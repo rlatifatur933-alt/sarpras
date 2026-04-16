@@ -167,11 +167,11 @@
                             <th>KATEGORI</th>
                             <th>LOKASI</th>
                             <th>FOTO</th>
-                            <th>STATUS</th>
-                            <th>AKSI</th>
+                            <th class="text-center">STATUS</th>
+                            <th class="text-center">AKSI</th> 
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="align-middle">
                         @foreach($laporan as $row)
                         <tr>
                             <td class="text-center text-muted">{{ $row->created_at->format('d/m/Y') }}</td>

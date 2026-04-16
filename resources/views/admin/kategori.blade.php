@@ -28,7 +28,7 @@
                         <tr>
                             <th class="ps-4 border-0 py-3" width="10%">ID</th>
                             <th class="border-0 py-3">Keterangan Kategori</th>
-                            <th class="text-end pe-4 border-0 py-3" width="15%">Aksi</th>
+                            <th class="text-center pe-4 border-0 py-3" width="15%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
