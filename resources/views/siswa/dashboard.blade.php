@@ -71,5 +71,73 @@
             </div>
         </div>
     </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-8 mb-4">
+            <div class="card border-0 shadow-sm p-4" style="border-radius: 20px; min-height: 400px;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0">Laporan Terbaru Kamu</h5>
+                    <a href="/history-aspirasi" class="btn btn-sm btn-light text-primary fw-bold" style="border-radius: 10px;">Lihat Semua</a>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="border-0">Isi Laporan</th>
+                                <th class="border-0">Tanggal</th>
+                                <th class="border-0 text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($laporan_terbaru as $row)
+                            <tr>
+                                <td class="border-0">
+                                    <span class="fw-semibold d-block">{{ Str::limit($row->inputAspirasi->ket, 40) }}</span>
+                                    <small class="text-muted">ID: #{{ $row->id_aspirasi }}</small>
+                                </td>
+                                <td class="border-0 text-muted">{{ $row->created_at->format('d M Y') }}</td>
+                                <td class="border-0 text-center">
+                                    @if(strtolower($row->status) == 'menunggu')
+                                        <span class="badge bg-warning text-dark">Menunggu</span>
+                                    @elseif(strtolower($row->status) == 'proses' || strtolower($row->status) == 'diproses')
+                                        <span class="badge bg-primary">Diproses</span>
+                                    @elseif(strtolower($row->status) == 'selesai')
+                                        <span class="badge bg-success">Selesai</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="3" class="text-center py-5 text-muted">Belum ada laporan yang dikirim.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="card border-0 shadow-sm p-4 text-center" style="border-radius: 20px; background-color: #fcfdff;">
+                <div class="mb-3">
+                    <div class="bg-primary text-white mx-auto d-flex align-items-center justify-content-center rounded-circle" style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold;">
+                        {{ strtoupper(substr(auth()->user()->username, 0, 1)) }}
+                    </div>
+                </div>
+                <h5 class="fw-bold mb-1">{{ auth()->user()->username }}</h5>
+                <p class="text-muted small mb-3">Siswa - {{ $siswa->kelas ?? '-' }}</p>
+                <hr class="opacity-25">
+                <div class="text-start mb-2">
+                    <small class="text-muted d-block">NIS Anda:</small>
+                    <span class="fw-bold">{{ $siswa->nis ?? '-' }}</span>
+                </div>
+                <div class="text-start">
+                    <small class="text-muted d-block">Email Terdaftar:</small>
+                    <span class="fw-bold">{{ auth()->user()->email }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

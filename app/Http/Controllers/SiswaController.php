@@ -16,9 +16,7 @@ class SiswaController extends Controller
     public function dashboard()
     {
         $userId = auth()->user()->id;
-
         $siswa = \App\Models\Siswa::where('user_id', $userId)->first();
-        
         $nisUser = $siswa ? $siswa->nis : null;
 
         $total_laporan = Aspirasi::whereHas('inputAspirasi', function($query) use ($nisUser) {
@@ -35,7 +33,21 @@ class SiswaController extends Controller
                 $query->where('nis', $nisUser);
             })->count();
 
-        return view('siswa.dashboard', compact('total_laporan', 'laporan_pending', 'laporan_selesai'));
+        $laporan_terbaru = Aspirasi::whereHas('inputAspirasi', function($query) use ($nisUser) {
+                $query->where('nis', $nisUser);
+            })
+            ->with('inputAspirasi') 
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('siswa.dashboard', compact(
+            'total_laporan', 
+            'laporan_pending', 
+            'laporan_selesai', 
+            'laporan_terbaru', 
+            'siswa'            
+        ));
     }
 
     public function update(Request $request, $id)
