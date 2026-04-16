@@ -12,7 +12,7 @@
     <style>
         table {
             border-collapse: separate;
-            border-spacing: 0 12px; /* Memberi jarak antar baris agar jadi card */
+            border-spacing: 0 12px; 
         }
 
         thead th {
@@ -134,12 +134,50 @@
 </head>
 <body>
 
-    {{-- Panggil Navbar yang tadi kita buat --}}
-    @include('layouts.navbar')
+    <div id="app" class="d-flex">
+        <div id="sidebar" class="active" style="width: 280px; min-height: 100vh; background-color: #25396f; position: fixed;">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header p-4 text-center">
+                    <h3 class="text-white fw-bold">SAR<span class="text-primary">PRASIN</span></h3>
+                </div>
+                <hr class="mx-4" style="color: rgba(255,255,255,0.3)">
+                <div class="sidebar-menu px-3">
+                    <ul class="nav flex-column mt-3">
+                        <li class="nav-item mb-2">
+                            <a href="/dashboard-siswa" class="nav-link text-white p-3 rounded {{ request()->is('dashboard-siswa*') ? 'bg-primary shadow' : '' }}">
+                                <i class="bi bi-grid-1x2-fill me-2"></i> Dashboard
+                            </a>
+                        </li>
 
-    <div class="container mt-4">
-        {{-- Tempat isi konten (history, dll) --}}
-        @yield('content')
+                        <li class="nav-item mb-2">
+                            <a href="/history-aspirasi" class="nav-link text-white p-3 rounded {{ request()->is('history-aspirasi*') ? 'bg-primary shadow' : '' }}">
+                                <i class="bi bi-clock-history me-2"></i> Riwayat Laporan
+                            </a>
+                        </li>
+
+                        <li class="nav-item mb-2">
+                            <a href="/kirim-aspirasi" class="nav-link text-white p-3 rounded {{ request()->is('kirim-aspirasi*') ? 'bg-primary shadow' : '' }}">
+                                <i class="bi bi-plus-circle-fill me-2"></i> Kirim Laporan
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar-footer p-3" style="position: absolute; bottom: 0; width: 100%;">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger w-100 text-start">
+                            <i class="bi bi-box-arrow-right me-2"></i> Keluar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="main" class="flex-grow-1" style="margin-left: 280px; background-color: #f2f7ff; min-height: 100vh;">
+            <div class="p-4">
+                @yield('content')
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

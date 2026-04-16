@@ -4,12 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use App\Models\Aspirasi;
 
 class SiswaController extends Controller
 {
     public function index() {
         $siswa = \App\Models\Siswa::with('user')->get(); 
         return view('admin.siswa.index', compact('siswa'));
+    }
+
+    public function dashboard()
+    {
+        $nis = auth()->user()->username; 
+
+        $total_laporan = Aspirasi::whereHas('inputAspirasi', function($query) use ($nis) {
+            $query->where('nis', $nis);
+        })->count();
+
+        $laporan_pending = Aspirasi::where('status', 'Menunggu')
+        ->whereHas('inputAspirasi', function($query) use ($nis) {
+            $query->where('nis', $nis);
+        })->count();
+
+        $laporan_selesai = Aspirasi::where('status', 'Selesai')
+        ->whereHas('inputAspirasi', function($query) use ($nis) {
+            $query->where('nis', $nis);
+        })->count();
+
+        return view('siswa.dashboard', compact('total_laporan', 'laporan_pending', 'laporan_selesai'));
     }
 
     public function update(Request $request, $id)

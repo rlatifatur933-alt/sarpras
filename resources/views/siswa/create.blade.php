@@ -1,3 +1,5 @@
+@extends('layouts.siswa_app')
+
 @section('content')
 <div class="container mt-4">
     <div class="col-md-6 mx-auto">
