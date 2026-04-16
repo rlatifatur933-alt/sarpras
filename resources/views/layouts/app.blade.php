@@ -39,10 +39,9 @@
 <body>
 
     <div class="sidebar shadow">
-        <div class="p-4 text-center">
-            <h4 class="fw-bold text-white">SARPRAS</h4>
-            <hr class="text-secondary">
-        </div>
+            <div class="sidebar-header p-4 text-center">
+                <h3 class="text-white fw-bold">SAR<span class="text-primary">PRASIN</span></h3>
+            </div>
         <div class="p-4">
             @auth
                 {{-- Ini hanya tampil kalau sudah LOGIN --}}
