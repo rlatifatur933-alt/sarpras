@@ -77,54 +77,72 @@
         background: #f8f9fa;
     }
 
-    .header-box {
-        background: #ffffff;
-        border-radius: 15px;
-        border: 1px solid #edf2f9;
+    .sky-header {
+        background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+        padding: 25px 30px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
     }
 
-    .icon-shape {
-        width: 60px;
-        height: 60px;
+    .sky-header::after {
+        content: "";
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        top: -50px;
+        right: -30px;
+    }
+
+    .icon-box-sky {
+        width: 55px;
+        height: 55px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: rgba(52, 152, 219, 0.1); 
+        border-radius: 15px;
+        color: white;
+        font-size: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
-    .btn-primary {
-        background-color: #3498db;
+    .btn-light {
+        background: #ffffff;
         border: none;
-        transition: all 0.3s;
+        color: #0083b0 !important;
+        transition: all 0.3s ease;
     }
 
-    .btn-primary:hover {
-        background-color: #2980b9;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3) !important;
+    .btn-light:hover {
+        transform: scale(1.05);
+        background: #f8f9fa;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
     }
 
-    h3 {
-        font-family: 'Inter', sans-serif;
-        letter-spacing: -0.5px;
+    .text-white-50 {
+        color: rgba(255, 255, 255, 0.8) !important;
     }
 
     .btn-edit:hover { background: #e0e7ff; color: #435ebe; }
     .btn-delete:hover { background: #fee2e2; color: #ef4444; }
 </style>
-<div class="page-title-container mb-4">
-    <div class="header-box shadow-sm d-flex justify-content-between align-items-center p-4">
+<div class="sky-header mb-4 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-            <div class="icon-shape bg-soft-primary text-primary rounded-circle me-3">
-                <i class="bi bi-geo-alt-fill fs-3"></i>
+            <div class="icon-box-sky me-3">
+                <i class="bi bi-geo-alt-fill"></i>
             </div>
             <div>
-                <h3 class="fw-bold mb-0 text-dark">Data Lokasi</h3>
-                <p class="text-muted small mb-0">Kelola titik lokasi sarana dan prasarana sekolah</p>
+                <h3 class="fw-bold text-white mb-0" style="letter-spacing: -0.5px;">Data Lokasi</h3>
+                <p class="text-white-50 small mb-0">Atur dan kelola semua titik lokasi sarana sekolah</p>
             </div>
         </div>
         
-        <button class="btn btn-primary rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#tambahLokasi">
+        <button class="btn btn-light rounded-pill px-4 fw-bold shadow-sm text-primary" data-bs-toggle="modal" data-bs-target="#tambahLokasi">
             <i class="bi bi-plus-circle me-2"></i> Tambah Lokasi
         </button>
     </div>
