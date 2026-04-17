@@ -1,6 +1,33 @@
 @extends('layouts.app') {{-- Asumsi kamu pakai layout utama --}}
 
 @section('content')
+<style>
+   .border-primary {
+        border-color: #3498db !important; /* Biru sidebar */
+    }
+
+    .page-title-box {
+        background: linear-gradient(to right, rgba(52, 152, 219, 0.05), transparent);
+        padding: 1.5rem;
+        border-radius: 0 15px 15px 0;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        color: #2c3e50;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3) !important;
+    }
+</style>
 <div class="container">
 
     @if(session('success'))
@@ -10,14 +37,21 @@
     @endif
 
     <div class="container-fluid py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h4 class="fw-bold text-dark mb-1">Daftar Kategori Aspirasi</h4>
-            <p class="text-muted small mb-0">Kelola kategori sarana dan prasarana sekolah</p>
+    <div class="page-title-box pb-3 mb-4 border-bottom">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="border-start border-primary border-5 ps-3">
+                <h2 class="fw-bold text-dark mb-0" style="letter-spacing: -0.5px; font-family: 'Plus Jakarta Sans', sans-serif;">
+                    Daftar <span class="text-primary">Kategori</span> Aspirasi
+                </h2>
+                <p class="text-muted small mb-0 mt-1">
+                    <i class="bi bi-info-circle me-1"></i> Kelola kategori sarana dan prasarana sekolah secara terpusat.
+                </p>
+            </div>
+            
+            <a href="#" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                <i class="bi bi-plus-lg me-2"></i> Tambah Kategori
+            </a>
         </div>
-        <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalTambah">
-            <i class="bi bi-plus-circle me-2"></i>Tambah Kategori
-        </button>
     </div>
 
     <div class="card border-0 shadow-sm rounded-4">

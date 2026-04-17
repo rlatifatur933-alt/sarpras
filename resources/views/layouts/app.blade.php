@@ -40,9 +40,12 @@
 
     <div class="sidebar shadow">
             <div class="sidebar-header p-4 text-center">
-                <h3 class="text-white fw-bold">SAR<span class="text-primary">PRASIN</span></h3>
+                <h3 class="text-white fw-bold p-4 mb-0 text-center">
+                    SAR<span class="text-primary">PRASIN</span>
+                </h3>
+                <div class="mx-4 mb-4" style="border-bottom: 2px solid rgba(255, 255, 255, 0.2); height: 1px;"></div>
             </div>
-        <div class="p-4">
+    <div class="p-4">
             @auth
                 {{-- Ini hanya tampil kalau sudah LOGIN --}}
                 @if(auth()->user()->role == 'admin')
@@ -53,13 +56,13 @@
                     <a href="{{ route('kategori.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('kategori*') ? 'active' : '' }}">
                         <i class="bi bi-grid-1x2-fill me-3"></i> Kategori Barang
                     </a>
-                    <a href="{{ route('lokasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/lokasi*') ? 'active' : '' }}">
+                    <a href="{{ route('lokasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('lokasi*') ? 'active' : '' }}">
                         <i class="bi bi-geo-alt-fill me-3"></i> Data Lokasi
                     </a>
                     <a href="{{ route('aspirasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/aspirasi*') ? 'active' : '' }}">
                         <i class="bi bi-megaphone-fill me-3"></i> Laporan Kerusakan
                     </a>
-                    <a href="{{ route('siswa.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/siswa*') ? 'active' : '' }}">
+                    <a href="{{ route('siswa.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('siswa*') ? 'active' : '' }}">
                         <i class="bi bi-people-fill me-3"></i> Data Siswa
                     </a>
                 @else

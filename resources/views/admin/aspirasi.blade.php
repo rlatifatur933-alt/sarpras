@@ -52,12 +52,10 @@
         transition: all 0.3s;
     }
 
-    .sidebar .nav-link.active {
-        background-color: rgba(255, 255, 255, 0.1) !important;
-        color: #fff !important;
-        border-left: 4px solid #3b82f6;
-        border-radius: 0 8px 8px 0;
-        font-weight: 600;
+    .nav-link.active {
+        background: #3498db !important; /* Warna biru */
+        color: white !important;
+        font-weight: bold;
     }
 
     .main-content {

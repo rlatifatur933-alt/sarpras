@@ -77,17 +77,57 @@
         background: #f8f9fa;
     }
 
+    .header-box {
+        background: #ffffff;
+        border-radius: 15px;
+        border: 1px solid #edf2f9;
+    }
+
+    .icon-shape {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(52, 152, 219, 0.1); 
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border: none;
+        transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3) !important;
+    }
+
+    h3 {
+        font-family: 'Inter', sans-serif;
+        letter-spacing: -0.5px;
+    }
+
     .btn-edit:hover { background: #e0e7ff; color: #435ebe; }
     .btn-delete:hover { background: #fee2e2; color: #ef4444; }
 </style>
-<div class="page-heading d-flex justify-content-between align-items-center mb-4">
-    <div class="title-section">
-        <h3 class="main-title mb-0">Daftar Lokasi</h3>
-        <p class="text-muted small mb-0">Manajemen aset dan titik lokasi sarana prasarana</p>
+<div class="page-title-container mb-4">
+    <div class="header-box shadow-sm d-flex justify-content-between align-items-center p-4">
+        <div class="d-flex align-items-center">
+            <div class="icon-shape bg-soft-primary text-primary rounded-circle me-3">
+                <i class="bi bi-geo-alt-fill fs-3"></i>
+            </div>
+            <div>
+                <h3 class="fw-bold mb-0 text-dark">Data Lokasi</h3>
+                <p class="text-muted small mb-0">Kelola titik lokasi sarana dan prasarana sekolah</p>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#tambahLokasi">
+            <i class="bi bi-plus-circle me-2"></i> Tambah Lokasi
+        </button>
     </div>
-    <button class="btn btn-primary rounded-pill px-4 shadow-sm btn-add" data-bs-toggle="modal" data-bs-target="#tambahLokasi">
-        <i class="bi bi-plus-circle me-1"></i> Tambah Lokasi
-    </button>
 </div>
 
 <div class="page-content">
