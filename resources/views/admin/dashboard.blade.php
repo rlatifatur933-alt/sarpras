@@ -2,17 +2,15 @@
 @if(auth()->user()->role == 'siswa')
     <script>window.location = "{{ url('/history-aspirasi') }}";</script>
 @endif
-<div class="page-heading">
-    <div class="card bg-primary text-white shadow-sm border-0 mb-4" style="border-radius: 15px;">
-        <div class="card-body p-4">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h3 class="fw-bold text-white">Selamat Datang, {{ auth()->user()->username }}! 👋</h3>
-                    <p class="opacity-75">Senang melihat Anda kembali. Berikut ringkasan laporan sarpras hari ini.</p>
-                </div>
-                <div class="col-md-4 text-end d-none d-md-block">
-                    <i class="bi bi-person-workspace text-white" style="font-size: 5rem; opacity: 0.3;"></i>
-                </div>
+<div class="card border-0 shadow-sm mb-4" style="border-radius: 15px; background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);">
+    <div class="card-body p-4">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h3 class="fw-bold text-white mb-1">Selamat Datang, {{ auth()->user()->username }}! 👋</h3>
+                <p class="text-white opacity-75 mb-0">Senang melihat Anda kembali. Berikut adalah ringkasan laporan sarpras hari ini.</p>
+            </div>
+            <div class="col-md-4 text-end d-none d-md-block">
+                <i class="bi bi-person-workspace text-white opacity-25" style="font-size: 4rem;"></i>
             </div>
         </div>
     </div>

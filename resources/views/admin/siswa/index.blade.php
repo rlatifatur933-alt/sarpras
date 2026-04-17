@@ -37,10 +37,14 @@
     #table1 td, #table1 th {
         padding: 12px 15px !important;
     }
+
+    .icon-navy {
+        color: #000080 !important; /* Kode warna Navy */
+    }
 </style>
 <div class="d-flex align-items-center mb-4">
-    <div class="stats-icon purple me-3" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;">
-        <i class="bi bi-people-fill text-white fs-4"></i>
+    <div class="stats-icon me-3 shadow-sm" style="width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 128, 0.1); border-radius: 12px;">
+        <i class="bi bi-people-fill icon-navy fs-4"></i>
     </div>
     <div>
         <h3 class="fw-bold mb-0">Data Siswa</h3>

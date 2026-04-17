@@ -30,9 +30,25 @@
             color: white;
         }
         .nav-link.active {
-            background: #3498db !important; /* Warna biru */
+            background: #3498db !important; 
             color: white !important;
             font-weight: bold;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f0f7ff !important; 
+        }
+        .main-content { 
+            margin-left: 250px; 
+            padding: 30px; 
+            background-color: #f0f7ff; 
+            min-height: 100vh;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            background-color: #ffffff !important;
         }
     </style>
 </head>

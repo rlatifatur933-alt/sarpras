@@ -27,6 +27,12 @@
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3) !important;
     }
+
+    .btn-add {
+        position: relative !important;
+        z-index: 1050 !important; 
+        cursor: pointer !important;
+    }
 </style>
 <div class="container">
 
@@ -47,10 +53,9 @@
                     <i class="bi bi-info-circle me-1"></i> Kelola kategori sarana dan prasarana sekolah secara terpusat.
                 </p>
             </div>
-            
-            <a href="#" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                <i class="bi bi-plus-lg me-2"></i> Tambah Kategori
-            </a>
+            <button class="btn btn-primary btn-add ..." data-bs-toggle="modal" data-bs-target="#tambahKategori">
+                + Tambah Kategori
+            </button>
         </div>
     </div>
 
@@ -121,7 +126,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
+                        @endforeach
+                        <div class="modal fade" id="tambahKategori" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <form action="{{ route('kategori.store') }}" method="POST">
                                     @csrf
@@ -144,7 +150,6 @@
                                 </form>
                             </div>
                         </div>
-                        @endforeach
                     </tbody>
                 </table>
             </div>
