@@ -1,7 +1,6 @@
 @extends('layouts.app') 
 @section('content')
 <style>
-    
     .page-heading h2 {
         color: #25396f !important;
         font-weight: 800 !important;
@@ -38,33 +37,6 @@
         font-family: 'Inter', sans-serif;
         color: #334155;
         min-height: 100vh;
-    }
-
-    .sidebar {
-        background: #1e293b !important; 
-        padding-top: 20px;
-    }
-
-    .sidebar .nav-link {
-        color: #94a3b8;
-        margin: 4px 15px;
-        border-radius: 8px;
-        transition: all 0.3s;
-    }
-
-    .nav-link.active {
-        background: #3498db !important; 
-        color: white !important;
-        font-weight: bold;
-    }
-
-    .main-content {
-        padding: 30px;
-    }
-
-    .card-custom {
-        background: transparent;
-        border: none;
     }
 
     .table {
@@ -108,7 +80,6 @@
     .table tbody tr:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-        cursor: pointer;
     }
 
     .badge {
@@ -124,31 +95,14 @@
     .status-progress { background-color: #fff4e5; color: #f0ad4e; }
     .status-done { background-color: #e5f9e7; color: #28a745; }
 
-    .table img {
-        width: 50px;
-        height: 50px;
-        border-radius: 10px;
-        object-fit: cover;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .btn-outline-edit {
-        border: 1.5px solid #e2e8f0;
-        background: white;
-        color: #64748b;
-        border-radius: 10px;
-        font-weight: 600;
-        padding: 8px 16px;
-        transition: all 0.2s;
-    }
-
-    .btn-outline-edit:hover {
-        background: #3b82f6;
-        color: white;
-        border-color: #3b82f6;
-        transform: translateY(-2px);
+    .modal-detail-label {
+        font-weight: 700;
+        color: #435ebe;
+        font-size: 0.9rem;
+        margin-bottom: 0;
     }
 </style>
+
 <div class="page-heading">
     <h2>Data Pengaduan Sarana</h2>
     <p>Manajemen Pengaduan Sarana dan Prasarana</p>
@@ -175,19 +129,16 @@
                             <td class="text-center text-muted">{{ $row->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <div class="fw-bold text-dark">{{ $row->kategori->ket_kategori ?? 'N/A' }}</div>
-                                <small class="text-muted">{{ $row->ket }}</small>
+                                <small class="text-muted text-truncate" style="max-width: 150px; display: block;">{{ $row->ket }}</small>
                             </td>
                             <td>{{ $row->lokasi }}</td>
                             <td>
-                                {{-- Karena kita di dalam loop $laporan, dan $laporan itu isinya InputAspirasi --}}
                                 @if($row->foto && $row->foto != 'default.png')
-                                    <a href="{{ asset('uploads/aspirasi/' . $row->foto) }}" target="_blank">
-                                        <img src="{{ asset('uploads/aspirasi/' . $row->foto) }}" 
-                                            class="img-thumbnail" 
-                                            style="width: 60px; height: 60px; object-fit: cover;">
-                                    </a>
+                                    <img src="{{ asset('uploads/aspirasi/' . $row->foto) }}" 
+                                         class="rounded shadow-sm" 
+                                         style="width: 50px; height: 50px; object-fit: cover;">
                                 @else
-                                    <span class="text-muted small">Tidak ada foto</span>
+                                    <span class="text-muted small">No Photo</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -202,9 +153,14 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $row->id_pelaporan }}">
-                                    Edit
-                                </button>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#detailModal{{ $row->id_pelaporan }}">
+                                        Detail
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $row->id_pelaporan }}">
+                                        Edit
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
@@ -212,6 +168,64 @@
                 </table>
     
                 @foreach($laporan as $row)
+                    <div class="modal fade" id="detailModal{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content" style="border-radius: 15px; border: none;">
+                                <div class="modal-header border-0">
+                                    <h5 class="modal-title fw-bold" style="color: #25396f;">Detail Laporan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body p-4">
+                                    <div class="row">
+                                        <div class="col-md-5 mb-3 text-center">
+                                            <p class="modal-detail-label mb-2">Foto Bukti</p>
+                                            @if($row->foto && $row->foto != 'default.png')
+                                                <img src="{{ asset('uploads/aspirasi/' . $row->foto) }}" class="img-fluid rounded shadow" style="max-height: 300px; width: 100%; object-fit: cover;">
+                                            @else
+                                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 200px;">
+                                                    <p class="text-muted">Tidak ada foto</p>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="mb-3">
+                                                <p class="modal-detail-label">Pelapor</p>
+                                                <p class="fw-semibold">{{ $row->siswa->username ?? 'Siswa' }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 mb-3">
+                                                    <p class="modal-detail-label">Tanggal</p>
+                                                    <p>{{ $row->created_at->format('d F Y') }}</p>
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                    <p class="modal-detail-label">Kategori</p>
+                                                    <p>{{ $row->kategori->ket_kategori ?? '-' }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <p class="modal-detail-label">Lokasi</p>
+                                                <p>{{ $row->lokasi }}</p>
+                                            </div>
+                                            <div class="mb-3">
+                                                <p class="modal-detail-label">Keterangan Kerusakan</p>
+                                                <p class="bg-light p-2 rounded">{{ $row->ket }}</p>
+                                            </div>
+                                            @if($row->aspirasi && $row->aspirasi->feedback)
+                                            <div class="mb-3">
+                                                <p class="modal-detail-label text-success">Feedback Admin</p>
+                                                <p class="bg-light p-2 rounded border-start border-success border-4 italic">{{ $row->aspirasi->feedback }}</p>
+                                            </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="modal fade" id="editModal{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
