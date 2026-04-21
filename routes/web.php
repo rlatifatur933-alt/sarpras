@@ -46,6 +46,7 @@ Route::get('/dashboard', [AspirasiController::class, 'dashboard'])->name('admin.
 Route::get('/admin/aspirasi', [AspirasiController::class, 'index'])->name('aspirasi.index');
 Route::put('/admin/aspirasi/update/{id}', [AspirasiController::class, 'updateFeedback'])->name('admin.aspirasi.update');
 Route::post('/admin/aspirasi/update/{id}', [AspirasiController::class, 'updateStatus'])->name('aspirasi.update');
+Route::delete('/aspirasi/{id}', [AspirasiController::class, 'destroy'])->name('aspirasi.destroy');
 
 // Route untuk melihat progres untuk siswa
 Route::get('/history-aspirasi', [AspirasiController::class, 'history'])->name('aspirasi.history');
