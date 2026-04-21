@@ -39,7 +39,7 @@
     }
 
     .icon-navy {
-        color: #000080 !important; /* Kode warna Navy */
+        color: #000080 !important; 
     }
 </style>
 <div class="d-flex align-items-center mb-4">

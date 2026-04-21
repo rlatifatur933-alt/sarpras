@@ -53,7 +53,7 @@
     }
 
     .nav-link.active {
-        background: #3498db !important; /* Warna biru */
+        background: #3498db !important; 
         color: white !important;
         font-weight: bold;
     }
