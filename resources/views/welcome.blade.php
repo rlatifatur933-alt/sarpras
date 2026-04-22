@@ -103,11 +103,21 @@
                         Bantu kami memperbaiki fasilitas sekolah dengan melaporkan kerusakan atau memberikan saran melalui sistem SARPRASIN.
                     </p>
                     
-                    <div class="d-flex gap-3">
-                    <a href="{{ route('aspirasi.create') }}" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Kirim Laporan
-                    </a>
-                        <a href="#" class="btn btn-light btn-lg border px-4" style="border-radius: 8px;">Pelajari Lebih Lanjut</a>
+                    <div class="mt-4">
+                        @auth
+                            <a href="{{ route('aspirasi.create') }}" class="btn btn-primary px-4 py-2">
+                                <i class="bi bi-send-fill me-2"></i> Kirim Laporan
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-primary px-4 py-2" 
+                            onclick="return confirm('Silahkan login terlebih dahulu sebagai Siswa untuk mengirim laporan.')">
+                                <i class="bi bi-send-fill me-2"></i> Kirim Laporan
+                            </a>
+                        @endauth
+
+                        <a href="{{ route('tentang') }}" class="btn btn-outline-secondary px-4 py-2 ms-2">
+                            Pelajari Lebih Lanjut
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">

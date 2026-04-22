@@ -72,7 +72,7 @@
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg">Kirim Sekarang</button>
-                        <a href="/" class="btn btn-light text-muted">Kembali</a>
+                        <a href="{{ route('aspirasi.history') }}" class="btn btn-light text-muted">Kembali</a>
                     </div>
                 </form>
             </div>
