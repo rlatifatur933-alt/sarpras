@@ -125,7 +125,7 @@
                     <tbody class="align-middle">
                         @foreach($laporan as $row)
                         <tr>
-                            <td class="text-center text-muted">{{ $row->created_at->format('d/m/Y') }}</td>
+                            <td class="text-muted align-middle ps-3">{{ $row->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <div class="fw-bold text-dark">{{ $row->kategori->ket_kategori ?? 'N/A' }}</div>
                                 <small class="text-muted text-truncate" style="max-width: 150px; display: block;">{{ $row->ket }}</small>
@@ -154,7 +154,7 @@
                             <td class="text-center">
                                 {{-- Tombol Edit dihapus, semua pindah ke Detail --}}
                                 <button class="btn btn-info btn-sm text-white px-3" data-bs-toggle="modal" data-bs-target="#detailModal{{ $row->id_pelaporan }}">
-                                    <i class="bi bi-eye"></i> Detail & Aksi
+                                    <i class="bi bi-eye"></i> Detail
                                 </button>
                             </td>
                         </tr>
@@ -189,6 +189,13 @@
                                                     <span class="info-label">Keterangan Siswa</span>
                                                     <div class="info-box shadow-sm">
                                                         {{ $row->ket }}
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <span class="info-label">Tanggal Masuk Laporan</span>
+                                                    <div class="info-value">
+                                                        <i class="bi bi-calendar3 me-1"></i> {{ $row->created_at->format('d F Y') }} 
+                                                        <small class="text-muted">({{ $row->created_at->format('H:i') }} WIB)</small>
                                                     </div>
                                                 </div>
                                             </div>
