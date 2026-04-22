@@ -110,7 +110,7 @@
                             </a>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-primary px-4 py-2" 
-                            onclick="return confirm('Silahkan login terlebih dahulu sebagai Siswa untuk mengirim laporan.')">
+                            onclick="return confirm('Silahkan login terlebih dahulu untuk mengirim laporan.')">
                                 <i class="bi bi-send-fill me-2"></i> Kirim Laporan
                             </a>
                         @endauth
