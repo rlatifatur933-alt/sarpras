@@ -76,7 +76,7 @@
         <div class="col-lg-8 mb-4">
             <div class="card border-0 shadow-sm p-4" style="border-radius: 20px; min-height: 400px;">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="fw-bold mb-0">Laporan Terbaru Kamu</h5>
+                    <h5 class="fw-bold mb-0">Laporan Terbaru</h5>
                     <a href="/history-aspirasi" class="btn btn-sm btn-light text-primary fw-bold" style="border-radius: 10px;">Lihat Semua</a>
                 </div>
                 
@@ -85,6 +85,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="border-0">Isi Laporan</th>
+                                <th class="border-0">Pelapor</th>
                                 <th class="border-0">Tanggal</th>
                                 <th class="border-0 text-center">Status</th>
                             </tr>
@@ -95,6 +96,11 @@
                                 <td class="border-0">
                                     <span class="fw-semibold d-block">{{ Str::limit($row->inputAspirasi->ket, 40) }}</span>
                                     <small class="text-muted">ID: #{{ $row->id_aspirasi }}</small>
+                                </td>
+                                <td class="border-0">
+                                    <span class="text-dark fw-medium small">
+                                        {{ $row->inputAspirasi->siswa->username ?? $row->inputAspirasi->nis }}
+                                    </span>
                                 </td>
                                 <td class="border-0 text-muted">{{ $row->created_at->format('d M Y') }}</td>
                                 <td class="border-0 text-center">
@@ -109,7 +115,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="3" class="text-center py-5 text-muted">Belum ada laporan yang dikirim.</td>
+                               <td colspan="4" class="text-center py-5 text-muted">Belum ada laporan yang dikirim.</td>
                             </tr>
                             @endforelse
                         </tbody>

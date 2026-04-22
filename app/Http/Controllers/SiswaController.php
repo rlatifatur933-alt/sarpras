@@ -33,13 +33,10 @@ class SiswaController extends Controller
                 $query->where('nis', $nisUser);
             })->count();
 
-        $laporan_terbaru = Aspirasi::whereHas('inputAspirasi', function($query) use ($nisUser) {
-                $query->where('nis', $nisUser);
-            })
-            ->with('inputAspirasi') 
-            ->latest()
-            ->take(3)
-            ->get();
+        $laporan_terbaru = Aspirasi::with(['inputAspirasi.siswa']) 
+        ->latest()
+        ->take(5)
+        ->get();
 
         return view('siswa.dashboard', compact(
             'total_laporan', 
