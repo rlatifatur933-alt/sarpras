@@ -130,6 +130,97 @@
             border: none !important;
             font-weight: bold;
         }
+        #sidebar {
+            background-color: #1e293b !important; 
+            min-width: 280px;
+            max-width: 280px;
+            height: 100vh;
+            position: fixed;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 999;
+        }
+
+        .sidebar-header {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-header h3 {
+            color: #ffffff;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .nav-item {
+            list-style: none;
+            padding: 0 15px;
+        }
+
+        .nav-link {
+            color: #94a3b8 !important; 
+            padding: 14px 18px !important;
+            border-radius: 12px !important;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            transform: translateX(8px);
+        }
+
+        .nav-link.active, .bg-primary {
+            background: #3b82f6 !important; 
+            color: #ffffff !important;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3) !important;
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .nav-link:hover i {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .logout-wrapper {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            padding: 0 15px;
+        }
+
+        .btn-danger {
+            background-color: #ef4444 !important; 
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 12px !important;
+            font-weight: 700;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2) !important;
+            transition: all 0.3s;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4) !important;
+        }
     </style>
 </head>
 <body>
