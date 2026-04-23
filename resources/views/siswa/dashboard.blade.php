@@ -77,7 +77,6 @@
             <div class="card border-0 shadow-sm p-4" style="border-radius: 20px; min-height: 400px;">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5 class="fw-bold mb-0">Laporan Terbaru</h5>
-                    <a href="/history-aspirasi" class="btn btn-sm btn-light text-primary fw-bold" style="border-radius: 10px;">Lihat Semua</a>
                 </div>
                 
                 <div class="table-responsive">

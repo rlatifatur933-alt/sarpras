@@ -181,7 +181,7 @@
                                     </div>
                                     <div>
                                         <span class="d-block fw-bold text-dark">{{ $l->nama_lokasi }}</span>
-                                        <small class="text-muted"><span class="text-success small">●</span> Lokasi aktif</small>
+                                        
                                     </div>
                                 </div>
                             </td>
