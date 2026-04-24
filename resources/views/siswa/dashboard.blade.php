@@ -87,6 +87,7 @@
                                 <th class="border-0">Pelapor</th>
                                 <th class="border-0">Tanggal</th>
                                 <th class="border-0 text-center">Status</th>
+                                <th class="border-0 text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,6 +112,49 @@
                                         <span class="badge bg-success">Selesai</span>
                                     @endif
                                 </td>
+                                <td class="border-0 text-center">
+                                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id_aspirasi }}">
+                                        <i class="bi bi-eye"></i> Detail
+                                    </button>
+                                </td>
+                                <div class="modal fade" id="modalDetail{{ $row->id_aspirasi }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content border-0" style="border-radius: 20px;">
+                                            <div class="modal-header border-0 pt-4 px-4">
+                                                <h5 class="fw-bold mb-0">Detail Laporan #{{ $row->id_aspirasi }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body px-4 pb-4">
+                                                <div class="row mb-3">
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Pelapor</small>
+                                                        <span class="fw-bold">{{ $row->inputAspirasi->siswa->username ?? 'Anonim' }}</span>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Status</small>
+                                                        <span class="badge {{ strtolower($row->status) == 'selesai' ? 'bg-success' : 'bg-warning text-dark' }}">
+                                                            {{ $row->status }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="mb-3">
+                                                    <small class="text-muted d-block">Isi Laporan</small>
+                                                    <div class="p-3 bg-light rounded-3 mt-1">
+                                                        {{ $row->inputAspirasi->ket }}
+                                                    </div>
+                                                </div>
+
+                                                @if($row->feedback)
+                                                <div class="p-3 border-start border-4 border-primary bg-light rounded-3">
+                                                    <small class="text-primary fw-bold d-block">Feedback Admin:</small>
+                                                    <p class="mb-0 small">{{ $row->feedback }}</p>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                             @empty
                             <tr>

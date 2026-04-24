@@ -70,3 +70,4 @@ Route::put('/admin/siswa/{user_id}', [SiswaController::class, 'update'])->name('
 Route::post('/admin/siswa/store', [SiswaController::class, 'store'])->name('siswa.store');
 Route::delete('/admin/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
 Route::get('/dashboard-siswa', [SiswaController::class, 'dashboard'])->name('siswa.dashboard');
+Route::get('/dashboard/detail/{id}', [App\Http\Controllers\SiswaController::class, 'detailLaporan'])->name('laporan.detail');

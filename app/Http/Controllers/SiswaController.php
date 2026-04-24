@@ -96,4 +96,11 @@ class SiswaController extends Controller
 
         return redirect()->back()->with('success', 'Data berhasil dihapus!');
     }
+
+    public function detailLaporan($id)
+    {
+        $laporan = Aspirasi::with(['inputAspirasi.siswa'])->findOrFail($id);
+
+        return view('siswa.detail', compact('laporan'));
+    }
 }
