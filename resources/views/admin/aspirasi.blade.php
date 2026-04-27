@@ -1,7 +1,6 @@
 @extends('layouts.app') 
 @section('content')
 <style>
-    /* Header Styling */
     .page-heading h2 {
         color: #25396f !important;
         font-weight: 800 !important;
@@ -9,7 +8,6 @@
         letter-spacing: -1px !important;
     }
 
-    /* Table Styling */
     .table thead th {
         background-color: #f8f9fa;
         color: #435ebe;
@@ -32,7 +30,6 @@
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
     }
 
-    /* Modal Styling */
     .modal-content {
         border: none;
         border-radius: 20px;
@@ -51,7 +48,6 @@
         filter: brightness(0) invert(1);
     }
 
-    /* Kontras Teks Modal */
     .info-label {
         color: #435ebe;
         font-weight: 800;
@@ -62,7 +58,7 @@
     }
 
     .info-value {
-        color: #111; /* Hitam pekat agar jelas */
+        color: #111; 
         font-weight: 600;
         font-size: 1rem;
     }
@@ -140,24 +136,84 @@
                             </td>
                             <td class="text-center">
                                 @if($row->aspirasi)
-                                    @if($row->aspirasi->status == 'menunggu')
-                                        <span class="badge rounded-pill status-pending">Pending</span>
-                                    @elseif($row->aspirasi->status == 'proses')
-                                        <span class="badge rounded-pill status-progress">In Progress</span>
-                                    @else
-                                        <span class="badge rounded-pill status-done">Done</span>
-                                    @endif
+                                    @php $status = $row->aspirasi->status; @endphp
+                                    <span class="badge rounded-pill {{ $status == 'menunggu' ? 'status-pending' : ($status == 'proses' ? 'status-progress' : 'status-done') }}">
+                                        {{ ucfirst($status) }}
+                                    </span>
                                 @else
                                     <span class="badge rounded-pill bg-light text-muted">Belum Dicek</span>
                                 @endif
                             </td>
                             <td class="text-center">
-                                {{-- Tombol Edit dihapus, semua pindah ke Detail --}}
-                                <button class="btn btn-info btn-sm text-white px-3" data-bs-toggle="modal" data-bs-target="#detailModal{{ $row->id_pelaporan }}">
-                                    <i class="bi bi-eye"></i> Detail
-                                </button>
+                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                    <button class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#viewModal{{ $row->id_pelaporan }}">
+                                        <i class="bi bi-eye text-secondary fs-5"></i>
+                                    </button>
+
+                                    <button class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#editModal{{ $row->id_pelaporan }}">
+                                        <i class="bi bi-pencil-square text-primary fs-5"></i>
+                                    </button>
+
+                                    <form action="{{ route('aspirasi.destroy', $row->id_pelaporan) }}" method="POST" class="m-0">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="btn p-0 border-0" onclick="return confirm('Yakin hapus?')">
+                                            <i class="bi bi-trash3 text-danger fs-5"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
+
+                        <div class="modal fade" id="viewModal{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-md modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"><i class="bi bi-eye-fill me-2"></i> Detail Laporan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-4 text-start">
+                                        <img src="{{ asset('uploads/aspirasi/' . $row->foto) }}" class="img-fluid rounded-4 mb-3" style="width: 100%; height: 200px; object-fit: cover;">
+                                        <span class="info-label">Pelapor:</span>
+                                        <p class="info-value">{{ $row->siswa->username ?? 'Anonym' }}</p>
+                                        <span class="info-label">Isi Laporan:</span>
+                                        <div class="info-box mb-3">{{ $row->ket }}</div>
+                                        <span class="info-label">Tanggapan Admin Sebelumnya:</span>
+                                        <p class="info-value text-muted"><em>{{ $row->aspirasi->feedback ?? 'Belum ada tanggapan' }}</em></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="editModal{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form action="{{ route('aspirasi.update', $row->id_pelaporan) }}" method="POST">
+                                        @csrf
+                                        <div class="modal-header" style="background: linear-gradient(45deg, #1d3557, #457b9d);">
+                                            <h5 class="modal-title"><i class="bi bi-pencil-fill me-2"></i> Update Status & Feedback</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body p-4">
+                                            <div class="mb-3 text-start">
+                                                <label class="form-label-custom">Set Status</label>
+                                                <select name="status" class="form-select border-2">
+                                                    <option value="menunggu" {{ ($row->aspirasi->status ?? '') == 'menunggu' ? 'selected' : '' }}>PENDING</option>
+                                                    <option value="proses" {{ ($row->aspirasi->status ?? '') == 'proses' ? 'selected' : '' }}>IN PROGRESS</option>
+                                                    <option value="selesai" {{ ($row->aspirasi->status ?? '') == 'selesai' ? 'selected' : '' }}>DONE</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 text-start">
+                                                <label class="form-label-custom">Tanggapan Admin</label>
+                                                <textarea name="feedback" class="form-control border-2" rows="4">{{ $row->aspirasi->feedback ?? '' }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer bg-light">
+                                            <button type="submit" class="btn btn-primary w-100 fw-bold">SIMPAN PERUBAHAN</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         @endforeach
                     </tbody>
                 </table>
