@@ -112,10 +112,10 @@
                                         <span class="badge bg-success">Selesai</span>
                                     @endif
                                 </td>
-                                <td class="border-0 text-center">
-                                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id_aspirasi }}">
+                                <td class="text-end">
+                                    <a href="{{ route('laporan.detail', $row->id_aspirasi) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
                                         <i class="bi bi-eye"></i> Detail
-                                    </button>
+                                    </a>
                                 </td>
                                 <div class="modal fade" id="modalDetail{{ $row->id_aspirasi }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">

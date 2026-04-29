@@ -235,7 +235,7 @@
                 <div class="sidebar-menu px-3">
                     <ul class="nav flex-column mt-3">
                         <li class="nav-item mb-2">
-                            <a href="/dashboard-siswa" class="nav-link text-white p-3 rounded {{ request()->is('dashboard-siswa*') ? 'bg-primary shadow' : '' }}">
+                            <a href="/dashboard-siswa" class="nav-link text-white p-3 rounded {{ request()->is('dashboard-siswa*') || request()->is('dashboard/detail*') ? 'bg-primary shadow' : '' }}">
                                 <i class="bi bi-grid-1x2-fill me-2"></i> Dashboard
                             </a>
                         </li>
