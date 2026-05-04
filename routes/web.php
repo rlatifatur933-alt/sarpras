@@ -43,6 +43,7 @@ Route::post('/login', [AuthController::class, 'auth']);
 Route::get('/dashboard', [AspirasiController::class, 'dashboard'])->name('admin.dashboard');
 
 // Route untuk Admin Kasih Feedback & Update Status
+Route::get('/admin/detail/{id}', [App\Http\Controllers\AspirasiController::class, 'show'])->name('admin.detail');
 Route::get('/admin/aspirasi', [AspirasiController::class, 'index'])->name('aspirasi.index');
 Route::put('/admin/aspirasi/update/{id}', [AspirasiController::class, 'updateFeedback'])->name('admin.aspirasi.update');
 Route::post('/admin/aspirasi/update/{id}', [AspirasiController::class, 'updateStatus'])->name('aspirasi.update');

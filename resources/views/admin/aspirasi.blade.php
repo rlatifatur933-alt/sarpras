@@ -96,6 +96,25 @@
     .status-pending { background-color: #ffe5e5; color: #ff4a4a; }
     .status-progress { background-color: #fff4e5; color: #ff9f43; }
     .status-done { background-color: #e5f9f6; color: #28c76f; }
+
+    @media (min-width: 992px) {
+        .modal-custom-full {
+            max-width: calc(100% - 300px) !important;
+            margin-left: auto !important;
+            margin-right: 20px !important;
+        }
+        
+        .modal-content {
+            border-radius: 20px !important;
+            border: none !important;
+        }
+    }
+
+    .img-detail-modal {
+        height: 300px !important;
+        object-fit: cover;
+        border-radius: 15px;
+    }
 </style>
 
 <div class="page-heading">
@@ -146,9 +165,9 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center align-items-center gap-3">
-                                    <button class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#viewModal{{ $row->id_pelaporan }}">
+                                    <a href="{{ url('/admin/detail/' . $row->id_pelaporan) }}" class="btn p-0 border-0">
                                         <i class="bi bi-eye text-secondary fs-5"></i>
-                                    </button>
+                                    </a>
 
                                     <button class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#editModal{{ $row->id_pelaporan }}">
                                         <i class="bi bi-pencil-square text-primary fs-5"></i>
@@ -164,28 +183,8 @@
                             </td>
                         </tr>
 
-                        <div class="modal fade" id="viewModal{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-md modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title"><i class="bi bi-eye-fill me-2"></i> Detail Laporan</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body p-4 text-start">
-                                        <img src="{{ asset('uploads/aspirasi/' . $row->foto) }}" class="img-fluid rounded-4 mb-3" style="width: 100%; height: 200px; object-fit: cover;">
-                                        <span class="info-label">Pelapor:</span>
-                                        <p class="info-value">{{ $row->siswa->username ?? 'Anonym' }}</p>
-                                        <span class="info-label">Isi Laporan:</span>
-                                        <div class="info-box mb-3">{{ $row->ket }}</div>
-                                        <span class="info-label">Tanggapan Admin Sebelumnya:</span>
-                                        <p class="info-value text-muted"><em>{{ $row->aspirasi->feedback ?? 'Belum ada tanggapan' }}</em></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="modal fade" id="editModal{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog modal-md modal-dialog-centered">
                                 <div class="modal-content">
                                     <form action="{{ route('aspirasi.update', $row->id_pelaporan) }}" method="POST">
                                         @csrf
@@ -220,7 +219,7 @@
     
                 @foreach($laporan as $row)
                     <div class="modal fade" id="detailModal{{ $row->id_pelaporan }}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-dialog modal-custom-full modal-dialog-centered">
                             <div class="modal-content">
                                 <form action="{{ route('aspirasi.update', $row->id_pelaporan) }}" method="POST">
                                     @csrf

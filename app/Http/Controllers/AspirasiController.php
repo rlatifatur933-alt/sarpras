@@ -145,4 +145,14 @@ class AspirasiController extends Controller
 
         return redirect()->back()->with('success', 'Laporan berhasil dihapus!');
     }
+
+    public function show($id)
+    {
+        // Mengambil data dari InputAspirasi karena di situ data laporan siswa berada
+        // Kita panggil relasi 'siswa' dan 'aspirasi' (untuk status/feedback)
+        $aspirasi = \App\Models\InputAspirasi::with(['siswa', 'aspirasi'])->findOrFail($id);
+
+        // Hapus kata 'siswa' karena filenya langsung di folder admin
+        return view('admin.detail', compact('aspirasi'));
+    }
 }

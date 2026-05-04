@@ -76,8 +76,9 @@
                     <a href="{{ route('lokasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('lokasi*') ? 'active' : '' }}">
                         <i class="bi bi-geo-alt-fill me-3"></i> Data Lokasi
                     </a>
-                    <a href="{{ route('aspirasi.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('admin/aspirasi*') ? 'active' : '' }}">
-                        <i class="bi bi-megaphone-fill me-3"></i> Laporan Kerusakan
+                    <a href="{{ route('aspirasi.index') }}"  class="nav-link {{ request()->is('admin/aspirasi*') || request()->is('admin/detail*') ? 'active bg-primary' : 'text-white' }}">
+                        <i class="bi bi-megaphone me-2"></i>
+                        Laporan Kerusakan
                     </a>
                     <a href="{{ route('siswa.index') }}" class="nav-link d-flex align-items-center mb-2 {{ request()->is('siswa*') ? 'active' : '' }}">
                         <i class="bi bi-people-fill me-3"></i> Data Siswa
