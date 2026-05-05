@@ -8,8 +8,18 @@ use App\Models\Aspirasi;
 
 class SiswaController extends Controller
 {
-    public function index() {
-        $siswa = \App\Models\Siswa::with('user')->get(); 
+    public function index(Request $request) {
+        $cari = $request->cari;
+    
+        $siswa = \App\Models\Siswa::with('user')
+            ->where(function($query) use ($cari) {
+                $query->where('username', 'like', "%" . $cari . "%")
+                      ->orWhereHas('user', function($q) use ($cari) {
+                          $q->where('email', 'like', "%" . $cari . "%");
+                      });
+            })
+            ->get();
+    
         return view('admin.siswa.index', compact('siswa'));
     }
 

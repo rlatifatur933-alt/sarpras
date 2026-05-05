@@ -56,9 +56,15 @@
         <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="card-title">Daftar Akun & Email Siswa</h4>
+
+            <div style="width: 250px;">
+                <input type="text" id="inputCari" class="form-control form-control-sm" placeholder="Cari email atau nama...">
+            </div>
+
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahSiswa">
                 <i class="bi bi-plus-circle"></i> Tambah Siswa
             </button>
+
         </div>
             <div class="card-body">
                 <table class="table table-striped" id="table1">
@@ -135,12 +141,27 @@
                         @endforeach
                     </tbody>
                 </table>
+                <script>
+                    document.getElementById('inputCari').addEventListener('keyup', function() {
+                        let filter = this.value.toLowerCase();
+                        let rows = document.querySelectorAll('#table1 tbody tr');
+
+                        rows.forEach(row => {
+                            let nama = row.cells[2].textContent.toLowerCase();
+                            let email = row.cells[3].textContent.toLowerCase();
+
+                            if (nama.includes(filter) || email.includes(filter)) {
+                                row.style.display = "";
+                            } else {
+                                row.style.display = "none"; 
+                            }
+                        });
+                    });
+                </script>
             </div>
         </div>
     </section>
 </div>
-@endsection
-
 <div class="modal fade" id="tambahSiswa" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -175,3 +196,4 @@
         </div>
     </div>
 </div>
+@endsection
