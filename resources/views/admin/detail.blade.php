@@ -1,4 +1,4 @@
-@extends('layouts.app') <!-- Pastikan ini nama file layout utamamu -->
+@extends('layouts.app') 
 
 @section('content')
 <div class="container-fluid py-4">
@@ -36,12 +36,10 @@
                     </div>
                 </div>
 
-                <!-- Kolom Kanan: Keterangan, Status & Feedback -->
                 <div class="col-lg-7 mb-4">
                     <div class="card border-0 shadow-sm h-100" style="border-radius: 15px;">
                         <div class="card-body p-4 d-flex flex-column">
                             
-                            <!-- Keterangan -->
                             <div class="mb-4">
                                 <label class="text-primary small fw-bold text-uppercase mb-2 d-block">Keterangan Siswa</label>
                                 <div class="p-3 bg-light rounded-3 border-0" style="min-height: 100px;">
@@ -51,7 +49,6 @@
 
                             <hr class="opacity-50">
 
-                            <!-- Status -->
                             <div class="mb-4">
                                 <label class="text-primary small fw-bold text-uppercase mb-2 d-block">Status Laporan</label>
                                 @php 
@@ -69,7 +66,6 @@
                                 </div>
                             </div>
 
-                            <!-- Tanggapan -->
                             <div class="mt-auto">
                                 <label class="text-primary small fw-bold text-uppercase mb-2 d-block">Tanggapan Admin</label>
                                 <div class="p-3 bg-white rounded-3 border" style="min-height: 120px; color: #666; font-style: italic;">
