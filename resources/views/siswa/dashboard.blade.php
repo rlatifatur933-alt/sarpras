@@ -94,12 +94,12 @@
                             @forelse($laporan_terbaru as $row)
                             <tr>
                                 <td class="border-0">
-                                    <span class="fw-semibold d-block">{{ Str::limit($row->inputAspirasi->ket, 40) }}</span>
+                                    <span class="fw-semibold d-block">{{ Str::limit($row->inputAspirasi->ket ?? 'Keterangan tidak ditemukan', 40) }}</span>
                                     <small class="text-muted">ID: #{{ $row->id_aspirasi }}</small>
                                 </td>
                                 <td class="border-0">
                                     <span class="text-dark fw-medium small">
-                                        {{ $row->inputAspirasi->siswa->username ?? $row->inputAspirasi->nis }}
+                                         {{ $row->inputAspirasi->siswa->username ?? $row->inputAspirasi->nis ?? 'Data Tidak Ditemukan' }}
                                     </span>
                                 </td>
                                 <td class="border-0 text-muted">{{ $row->created_at->format('d M Y') }}</td>

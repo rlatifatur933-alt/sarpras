@@ -100,13 +100,8 @@
                 @endif
 
                 <form action="{{ route('aspirasi.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                    @csrf 
                     
-                    <div class="mb-3">
-                        <label class="form-label">nis</label>
-                        <input type="number" name="nis" class="form-control" placeholder="Masukkan nis kamu" required>
-                    </div>
-
                     <div class="mb-3">
                         <label class="form-label">Kategori Kerusakan</label>
                         <select name="id_kategori" class="form-select" required>

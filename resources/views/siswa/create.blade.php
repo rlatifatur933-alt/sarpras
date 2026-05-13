@@ -27,12 +27,6 @@
                     
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold text-secondary small">NIS Pelapor</label>
-                                {{-- Gunakan variable $siswa dari Controller --}}
-                                <input type="number" name="nis" class="form-control bg-light" value="{{ $siswa->nis }}" readonly>
-                                <small class="text-muted italic" style="font-size: 11px;">*NIS terisi otomatis</small>
-                            </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold text-secondary small">Kategori Kerusakan</label>

@@ -65,37 +65,38 @@ class AspirasiController extends Controller
 
     public function store(Request $request)
     {
+        $siswa = auth()->user()->siswa;
+    
         $request->validate([
-            'nis'         => 'required',
             'id_kategori' => 'required',
             'lokasi'      => 'required',
             'ket'         => 'required',
-            'foto'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
+            'foto'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
-        $nama_foto = 'default.png'; 
+    
+        $nama_foto = 'default.png';
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $nama_foto = time() . "_" . $file->getClientOriginalName();
             $file->move(public_path('uploads/aspirasi'), $nama_foto);
         }
-
+    
         $simpan = InputAspirasi::create([
-            'nis'         => $request->nis,
+            'nis'         => $siswa->nis, 
             'id_kategori' => $request->id_kategori,
             'lokasi'      => $request->lokasi,
             'ket'         => $request->ket,
-            'foto'        => $nama_foto, 
+            'foto'        => $nama_foto,
         ]);
-
+    
         if ($simpan) {
-            aspirasi::create([
+            Aspirasi::create([
                 'id_pelaporan' => $simpan->id_pelaporan,
                 'status'       => 'menunggu',
                 'feedback'     => '-',
             ]);
         }
-
+    
         return redirect('/history-aspirasi')->with('success', 'Aspirasi berhasil dikirim!');
     }
 

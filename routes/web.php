@@ -43,7 +43,7 @@ Route::post('/login', [AuthController::class, 'auth']);
 Route::get('/dashboard', [AspirasiController::class, 'dashboard'])->name('admin.dashboard');
 
 // Route untuk Admin Kasih Feedback & Update Status
-Route::get('/admin/detail/{id}', [App\Http\Controllers\AspirasiController::class, 'show'])->name('admin.detail');
+Route::get('/admin/detail/{id}', [AspirasiController::class, 'show'])->name('admin.detail');
 Route::get('/admin/aspirasi', [AspirasiController::class, 'index'])->name('aspirasi.index');
 Route::put('/admin/aspirasi/update/{id}', [AspirasiController::class, 'updateFeedback'])->name('admin.aspirasi.update');
 Route::post('/admin/aspirasi/update/{id}', [AspirasiController::class, 'updateStatus'])->name('aspirasi.update');
@@ -71,4 +71,4 @@ Route::put('/admin/siswa/{user_id}', [SiswaController::class, 'update'])->name('
 Route::post('/admin/siswa/store', [SiswaController::class, 'store'])->name('siswa.store');
 Route::delete('/admin/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
 Route::get('/dashboard-siswa', [SiswaController::class, 'dashboard'])->name('siswa.dashboard');
-Route::get('/dashboard/detail/{id}', [App\Http\Controllers\SiswaController::class, 'detailLaporan'])->name('laporan.detail');
+Route::get('/dashboard/detail/{id}', [SiswaController::class, 'detailLaporan'])->name('laporan.detail');

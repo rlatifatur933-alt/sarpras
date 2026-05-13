@@ -51,6 +51,15 @@
         <span class="text-muted">Total Siswa Terdaftar: <b>{{ $siswa->count() }}</b></span>
     </div>
 </div>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="page-content">
     <section class="section">
         <div class="card">
@@ -116,9 +125,12 @@
                                                 <input type="text" name="username" class="form-control" value="{{ $s->username }}" required>
                                             </div>
 
-                                            <div class="form-group mb-2">
+                                            <div class="mb-3">
                                                 <label>NIS</label>
-                                                <input type="text" name="nis" class="form-control" value="{{ $s->nis }}" required>
+                                                <input type="text" name="nis" class="form-control @error('nis') is-invalid @enderror" value="{{ old('nis', $s->nis) }}">
+                                                @error('nis')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group mb-2">

@@ -1,4 +1,4 @@
-@extends('layouts.siswa_app') {{-- Sesuaikan dengan layout yang lo pake di create.blade.php --}}
+@extends('layouts.siswa_app') 
 
 @section('content')
 <div class="container mt-4">

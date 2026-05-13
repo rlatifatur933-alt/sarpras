@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use App\Models\Aspirasi;
+use App\Models\User;
 
 class SiswaController extends Controller
 {
@@ -26,7 +27,7 @@ class SiswaController extends Controller
     public function dashboard()
     {
         $userId = auth()->user()->id;
-        $siswa = \App\Models\Siswa::where('user_id', $userId)->first();
+        $siswa = Siswa::where('user_id', $userId)->first();
         $nisUser = $siswa ? $siswa->nis : null;
 
         $total_laporan = Aspirasi::whereHas('inputAspirasi', function($query) use ($nisUser) {
@@ -43,10 +44,11 @@ class SiswaController extends Controller
                 $query->where('nis', $nisUser);
             })->count();
 
-        $laporan_terbaru = Aspirasi::with(['inputAspirasi.siswa']) 
-        ->latest()
-        ->take(5)
-        ->get();
+            $laporan_terbaru = Aspirasi::has('inputAspirasi')
+            ->with('inputAspirasi.siswa')
+            ->latest() 
+            ->take(5)  
+            ->get();   
 
         return view('siswa.dashboard', compact(
             'total_laporan', 
@@ -59,7 +61,7 @@ class SiswaController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = \App\Models\User::findOrFail($id);
+        $user = User::findOrFail($id);
         
         $userData = [
             'username' => $request->username,
@@ -72,7 +74,7 @@ class SiswaController extends Controller
 
         $user->update($userData);
 
-        \App\Models\Siswa::where('user_id', $id)->update([
+        Siswa::where('user_id', $id)->update([
             'username' => $request->username,
             'nis' => $request->nis,
         ]);
@@ -82,18 +84,27 @@ class SiswaController extends Controller
 
     public function store(Request $request)
     {
-        $user = \App\Models\User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'role' => 'siswa'
+        $request->validate([
+            'username' => 'required',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'nis'      => 'required|unique:siswa,nis',
+        ], [
+            'email.unique' => 'Email sudah terdaftar!',
         ]);
 
-        \App\Models\Siswa::create([
-            'user_id' => $user->id, 
+        $user = User::create([
             'username' => $request->username,
-            'nis' => $request->nis,
-            'kelas' => $request->kelas ?? '-'
+            'email'    => $request->email,
+            'password' => bcrypt($request->password),
+            'role'     => 'siswa'
+        ]);
+
+        Siswa::create([
+            'user_id'  => $user->id,
+            'username' => $request->username,
+            'nis'      => $request->nis,
+            'kelas'    => $request->kelas ?? '-'
         ]);
 
         return redirect()->back()->with('success', 'Data Berhasil Disimpan!');
@@ -101,8 +112,8 @@ class SiswaController extends Controller
 
     public function destroy($id)
     {
-        \App\Models\Siswa::where('user_id', $id)->delete();
-        \App\Models\User::where('id', $id)->delete();
+        Siswa::where('user_id', $id)->delete();
+        User::where('id', $id)->delete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus!');
     }
