@@ -117,9 +117,16 @@
     }
 </style>
 
-<div class="page-heading">
-    <h2>Data Pengaduan Sarana</h2>
-    <p>Manajemen Pengaduan Sarana dan Prasarana</p>
+<div class="page-heading d-flex justify-content-between align-items-center">
+    <div>
+        <h2>Data Pengaduan Sarana</h2>
+        <p>Manajemen Pengaduan Sarana dan Prasarana</p>
+    </div>
+    <div>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalExportExcel">
+            Export Excel
+        </button>
+    </div>
 </div>
 
 <div class="page-content">
@@ -300,4 +307,69 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalExportExcel" tabindex="-1" aria-labelledby="modalExportExcelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalExportExcelLabel">Export Laporan Excel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin.aspirasi.export') }}" method="GET">
+                <div class="modal-body">
+                    
+                    <div class="mb-3 form-check bg-light p-3 rounded">
+                        <input type="checkbox" class="form-check-input" id="exportSemua" name="export_semua" style="margin-left: 0px; cursor: pointer;">
+                        <label class="form-check-label fw-bold text-success" for="exportSemua" style="margin-left: 20px; cursor: pointer;">
+                            Export Keseluruhan Data
+                        </label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-dark">Tanggal Mulai</label>
+                            <input type="date" name="tanggal_mulai" id="tanggalMulai" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-dark">Tanggal Selesai</label>
+                            <input type="date" name="tanggal_selesai" id="tanggalSelesai" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Status</label>
+                        <select name="status" class="form-control">
+                            <option value="Semua Status">Semua Status</option>
+                            <option value="menunggu">Menunggu</option>
+                            <option value="proses">Proses</option>
+                            <option value="selesai">Selesai</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Export Excel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Logic otomatis: kalau checkbox dicentang, input tanggal otomatis disabled
+    document.getElementById('exportSemua').addEventListener('change', function() {
+        var tglMulai = document.getElementById('tanggalMulai');
+        var tglSelesai = document.getElementById('tanggalSelesai');
+        
+        if(this.checked) {
+            tglMulai.disabled = true;
+            tglSelesai.disabled = true;
+            tglMulai.value = '';
+            tglSelesai.value = '';
+        } else {
+            tglMulai.disabled = false;
+            tglSelesai.disabled = false;
+        }
+    });
+</script>
 @endsection

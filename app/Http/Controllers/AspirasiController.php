@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\InputAspirasi;
 use App\Models\aspirasi;
+use App\Exports\AspirasiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AspirasiController extends Controller
 {
@@ -152,5 +154,18 @@ class AspirasiController extends Controller
         $aspirasi = \App\Models\InputAspirasi::with(['siswa', 'aspirasi'])->findOrFail($id);
 
         return view('admin.detail', compact('aspirasi'));
+    }
+
+    public function exportExcel(Request $request)
+    {
+        // Ambil data filter dari modal popup
+        $tanggalMulai = $request->input('tanggal_mulai');
+        $tanggalSelesai = $request->input('tanggal_selesai');
+        $status = $request->input('status');
+
+        $namaFile = 'laporan-sarpras-' . date('Y-m-d') . '.xlsx';
+
+        // Panggil class export dengan data filter
+        return Excel::download(new \App\Exports\AspirasiExport($tanggalMulai, $tanggalSelesai, $status), $namaFile);
     }
 }
