@@ -25,15 +25,46 @@ class AspirasiController extends Controller
         return view('admin.dashboard', compact('total', 'menunggu', 'proses', 'selesai', 'p_menunggu', 'p_proses', 'p_selesai'));
     }
 
-    public function index() 
+    public function index(Request $request) 
     {
-        $total = \App\Models\InputAspirasi::count();
-        $menunggu = \App\Models\Aspirasi::where('status', 'menunggu')->count();
-        $proses = \App\Models\Aspirasi::where('status', 'proses')->count();
-        $selesai = \App\Models\Aspirasi::where('status', 'selesai')->count();
+        $total = InputAspirasi::count();
+        $menunggu = Aspirasi::where('status', 'menunggu')->count();
+        $proses = Aspirasi::where('status', 'proses')->count();
+        $selesai = Aspirasi::where('status', 'selesai')->count();
 
+        // Ambil semua input filter dari user
+        $search = $request->input('search');
+        $tanggal = $request->input('tanggal');
+        $statusFilter = $request->input('status_filter');
+
+        // Buat query dasar dengan eager loading
+        $query = InputAspirasi::with(['siswa', 'kategori', 'aspirasi']);
+
+        // 1. Jalankan Filter berdasarkan Tanggal (jika diisi)
+        if ($tanggal) {
+            $query->whereDate('created_at', $tanggal);
+        }
+
+        // 2. Jalankan Filter berdasarkan Status (jika diisi)
+        if ($statusFilter) {
+            $query->whereHas('aspirasi', function($q) use ($statusFilter) {
+                $q->where('status', $statusFilter);
+            });
+        }
+
+        // 3. Jalankan Filter berdasarkan Kata Kunci / Teks (jika diisi)
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('ket', 'LIKE', "%{$search}%")
+                ->orWhere('lokasi', 'LIKE', "%{$search}%")
+                ->orWhereHas('kategori', function($catQuery) use ($search) {
+                    $catQuery->where('ket_kategori', 'LIKE', "%{$search}%");
+                }); 
+            });
+        }
         
-        $laporan = \App\Models\InputAspirasi::with(['siswa', 'kategori', 'aspirasi'])->latest()->get();
+        // Ambil data hasil gabungan filter
+        $laporan = $query->latest()->get();
 
         return view('admin.aspirasi', compact('total', 'menunggu', 'proses', 'selesai', 'laporan'));
     }

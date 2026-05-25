@@ -117,13 +117,49 @@
     }
 </style>
 
-<div class="page-heading d-flex justify-content-between align-items-center">
+<div class="page-heading d-flex justify-content-between align-items-center flex-wrap gap-3">
     <div>
         <h2>Data Pengaduan Sarana</h2>
         <p>Manajemen Pengaduan Sarana dan Prasarana</p>
     </div>
-    <div>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalExportExcel">
+    <div class="d-flex align-items-center gap-2">
+        <form action="{{ url()->current() }}" method="GET" class="d-flex gap-2 flex-wrap m-0">
+            <input 
+                type="date" 
+                name="tanggal" 
+                class="form-control" 
+                value="{{ request('tanggal') }}"
+                style="width: 160px; border-radius: 8px;"
+            >
+
+            <select name="status_filter" class="form-select" style="width: 150px; border-radius: 8px;">
+                <option value="">Semua Status</option>
+                <option value="menunggu" {{ request('status_filter') == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                <option value="proses" {{ request('status_filter') == 'proses' ? 'selected' : '' }}>Proses</option>
+                <option value="selesai" {{ request('status_filter') == 'selesai' ? 'selected' : '' }}>Selesai</option>
+            </select>
+
+            <input 
+                type="text" 
+                name="search" 
+                class="form-control" 
+                placeholder="Cari laporan/lokasi..." 
+                value="{{ request('search') }}"
+                style="width: 200px; border-radius: 8px;"
+            >
+
+            <button type="submit" class="btn btn-primary fw-bold" style="border-radius: 8px;">
+                <i class="bi bi-search"></i> Cari
+            </button>
+
+            @if(request('search') || request('tanggal') || request('status_filter'))
+                <a href="{{ url()->current() }}" class="btn btn-secondary fw-bold" style="border-radius: 8px;">
+                    Reset
+                </a>
+            @endif
+        </form>
+
+        <button type="button" class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#modalExportExcel" style="border-radius: 8px; padding: 7px 20px;">
             Export Excel
         </button>
     </div>

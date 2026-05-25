@@ -47,6 +47,13 @@
                                 </div>
                             </div>
 
+                            <div class="mb-4">
+                                <label class="fw-bold text-primary text-uppercase" style="font-size: 12px; letter-spacing: 1px;">Lokasi Kejadian / Fasilitas</label>
+                                <div class="p-3 bg-light rounded mt-1 fw-semibold text-dark">
+                                    <i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ $aspirasi->lokasi }}
+                                </div>
+                            </div>
+
                             <hr class="opacity-50">
 
                             <div class="mb-4">
